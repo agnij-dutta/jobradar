@@ -5,11 +5,32 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "jobradar"
 version = "0.1.0"
-description = "Search company job boards straight from Greenhouse, Ashby and Lever, with filters that don't lie."
+description = "Search company job boards straight from Greenhouse, Ashby and Lever, with filters for eligible geography, required years and level."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
+authors = [{ name = "Agnij Dutta" }]
+keywords = ["jobs", "job-search", "greenhouse", "ashby", "lever", "ats", "remote", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
 dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff>=0.6", "mypy>=1.10"]
+
+[project.urls]
+Homepage = "https://github.com/agnij-dutta/jobradar"
+Repository = "https://github.com/agnij-dutta/jobradar"
+Issues = "https://github.com/agnij-dutta/jobradar/issues"
+Changelog = "https://github.com/agnij-dutta/jobradar/blob/main/CHANGELOG.md"
 
 [project.scripts]
 jobradar = "jobradar.cli:main"

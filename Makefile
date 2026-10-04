@@ -1,14 +1,36 @@
 PY ?= python3
 
-.PHONY: test lint-js check sweep build serve stats
+.PHONY: help test lint format typecheck lint-web format-web check sweep build build-sample serve stats
+
+help:
+	@echo "test        unit tests"
+	@echo "lint        ruff check + ruff format --check (Python), biome check (web)"
+	@echo "format      ruff format + biome format"
+	@echo "typecheck   mypy"
+	@echo "check       lint + typecheck + test + build-sample (what CI runs)"
+	@echo "sweep       fetch every board (network, a few minutes)"
+	@echo "build       build dist/ from data/snapshot.json"
+	@echo "serve       build and serve dist/ on http://localhost:8787"
 
 test:
 	$(PY) -m unittest discover -s tests -t . -v
 
-lint-js:
-	node --check web/app.js
+lint:
+	ruff check .
+	ruff format --check .
+	npx --no-install biome check web
 
-check: test lint-js
+format:
+	ruff format .
+	npx --no-install biome format --write web
+
+typecheck:
+	mypy
+
+build-sample:
+	$(PY) -m jobradar build --snapshot tests/fixtures/sample_snapshot.json --out dist-sample
+
+check: lint typecheck test build-sample
 
 sweep:
 	$(PY) -m jobradar sweep
