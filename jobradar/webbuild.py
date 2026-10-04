@@ -110,5 +110,7 @@ def build(snapshot_path: str | None = None, out_dir: str | None = None) -> dict:
     meta["companies"] = [list(k) for k in companies]
     meta["first_seen_values"] = list(seen_times)
     payload = json.dumps({"meta": meta, "postings": postings}, ensure_ascii=False, separators=(",", ":"))
+    # U+2028/U+2029 are valid in JSON but end a string literal in pre-ES2019 JavaScript.
+    payload = payload.replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
     (data_dir / "jobs.js").write_text("window.JOBRADAR=" + payload + ";\n")
     return {"out": str(out), "postings": len(postings), "bytes": len(payload)}

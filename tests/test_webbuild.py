@@ -11,7 +11,7 @@ class WebBuild(unittest.TestCase):
     def test_build_writes_loadable_data(self):
         job = {
             "id": "1",
-            "title": "Backend Engineer",
+            "title": "Backend Engineer\u2028(Platform)",
             "location": "Remote",
             "secondaryLocations": [],
             "workplaceType": "Remote",
@@ -32,6 +32,7 @@ class WebBuild(unittest.TestCase):
             out = webbuild.build(str(snap), str(Path(d) / "dist"))
             js = (Path(out["out"]) / "data" / "jobs.js").read_text()
             self.assertTrue(js.startswith("window.JOBRADAR="))
+            self.assertNotIn("\u2028", js)
             data = json.loads(js[len("window.JOBRADAR=") :].rstrip().rstrip(";"))
             row = data["postings"][0]
             self.assertEqual((row["m"], row["r"], row["y"]), ("r", ["IN"], 2))
