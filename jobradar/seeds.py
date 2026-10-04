@@ -10,7 +10,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .ats import PROBE_ENDPOINTS, probe_board, raw_jobs
+from .ats import ADAPTERS, probe_board, raw_jobs
 
 ROOT = Path(__file__).resolve().parent.parent
 SEEDS = Path(os.environ.get("JOBRADAR_SEEDS_DIR") or ROOT / "seeds")
@@ -80,7 +80,7 @@ def _probe_one(ats: str, slug: str) -> dict:
 
 
 def probe(candidates: list[dict], workers: int = 12, log=print) -> dict:
-    tasks = [(ats, c) for c in candidates for ats in PROBE_ENDPOINTS]
+    tasks = [(ats, c) for c in candidates for ats in ADAPTERS]
     results: list[tuple[dict, dict]] = []
     with cf.ThreadPoolExecutor(workers) as ex:
         futs = {ex.submit(_probe_one, ats, c["slug"]): c for ats, c in tasks}

@@ -86,6 +86,27 @@ def _ashby_job(jid, title, loc, desc, workplace="Remote", comp=None):
     }
 
 
+class Adapters(unittest.TestCase):
+    def test_unknown_ats_is_an_error(self):
+        with self.assertRaises(ValueError):
+            normalize("workday", "acme", "Acme", {})
+
+    def test_lever_sections_are_stitched(self):
+        job = {
+            "id": "x",
+            "text": "Backend Engineer",
+            "hostedUrl": "https://jobs.lever.co/acme/x",
+            "descriptionPlain": "Intro.",
+            "lists": [{"text": "Requirements", "content": "<li>4+ years of Go experience</li>"}],
+            "categories": {"location": "Remote - Canada"},
+            "workplaceType": "remote",
+            "createdAt": 1767225600000,
+        }
+        p = normalize("lever", "acme", "Acme", job)
+        self.assertEqual((p["min_years"], p["regions"], p["remote_mode"]), (4, ["CA"], "remote"))
+        self.assertEqual(p["posted_at"], "2026-01-01T00:00:00+00:00")
+
+
 class SearchEndToEnd(unittest.TestCase):
     def setUp(self):
         jobs = [
