@@ -1,0 +1,140 @@
+{
+ "probed_at": "2026-10-04T06:26:09+00:00",
+ "unconfirmed_identity": [
+  {
+   "ats": "ashby",
+   "slug": "0g",
+   "company": "0g",
+   "category": "crypto-fintech",
+   "source": "legacy-sweep",
+   "jobs_at_probe": 8,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Enterprise Business Development",
+    "Project Manager",
+    "Enterprise Product Manager"
+   ]
+  },
+  {
+   "ats": "lever",
+   "slug": "epifi",
+   "company": "Epifi",
+   "category": "crypto-fintech",
+   "source": "legacy-sweep",
+   "jobs_at_probe": 1,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "DS/ML Intern"
+   ]
+  },
+  {
+   "ats": "lever",
+   "slug": "fi",
+   "company": "Fi",
+   "category": "crypto-fintech",
+   "source": "legacy-sweep",
+   "jobs_at_probe": 1,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Accounting Manager"
+   ]
+  },
+  {
+   "ats": "lever",
+   "slug": "cred",
+   "company": "Cred",
+   "category": "crypto-fintech",
+   "source": "legacy-sweep",
+   "jobs_at_probe": 1,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "accounts payable manager"
+   ]
+  },
+  {
+   "ats": "ashby",
+   "slug": "oplabs",
+   "company": "Oplabs",
+   "category": "crypto-fintech",
+   "source": "legacy-sweep",
+   "jobs_at_probe": 8,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Sr. Product Manager, Fintechs & Exchanges",
+    "Solutions Engineer, Japan",
+    "Blockchain Solutions Architect"
+   ]
+  },
+  {
+   "ats": "greenhouse",
+   "slug": "consensys",
+   "company": "MetaMask",
+   "category": "crypto",
+   "source": "expansion",
+   "jobs_at_probe": 7,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Director of Technical Accounting",
+    "Lead Product Designer",
+    "Product Marketing Lead - Trade"
+   ]
+  },
+  {
+   "ats": "greenhouse",
+   "slug": "gleanwork",
+   "company": "Glean",
+   "category": "ai",
+   "source": "expansion",
+   "jobs_at_probe": 128,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "AI Data Analyst",
+    "AI Success Manager, Central",
+    "AI Success Manager, Central"
+   ]
+  },
+  {
+   "ats": "greenhouse",
+   "slug": "stackblitz",
+   "company": "Bolt.new",
+   "category": "ai",
+   "source": "expansion",
+   "jobs_at_probe": 7,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Community Manager ",
+    "Engineering Manager - Front-End  (UI/UX)",
+    "Head of Finance"
+   ]
+  },
+  {
+   "ats": "greenhouse",
+   "slug": "xai",
+   "company": "SpaceXAI",
+   "category": "ai",
+   "source": "expansion",
+   "jobs_at_probe": 301,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Agency Development Manager",
+    "AI Tutor - Arabic",
+    "AI Tutor - Bulgarian"
+   ]
+  },
+  {
+   "ats": "greenhouse",
+   "slug": "billcom",
+   "company": "BILL",
+   "category": "fintech",
+   "source": "expansion",
+   "jobs_at_probe": 44,
+   "identity": "unconfirmed",
+   "sample_titles": [
+    "Associate Collections Analyst",
+    "Business Development Representative ",
+    "CXO AI Engineer"
+   ]
+  }
+ ],
+ "errors": []
+}

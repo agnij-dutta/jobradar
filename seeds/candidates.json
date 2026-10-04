@@ -1,0 +1,3202 @@
+[
+{
+"slug": "0g",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "0glabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "aave",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "airwallex",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "alchemy",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "alchemy-pay",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "alchemyapi",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "anchorage",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "ansa",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "aptos",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "aptoslabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "arbitrum",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "atlan",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "aztec",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "backpack",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "base",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "bastion",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "beam",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "berachain",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "biconomy",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "binance",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "bitgo",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "blindpay",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "borderless",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "brex",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "bridge",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "bureau",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "bvnk",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "capsule",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "cdp",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "celo",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "chainlink",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "cheqd",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "circle",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "clabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "clear",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "clerk",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "cobo",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "coinbase",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "coinbase-developer-platform",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "coinflow",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "column",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "conduit",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "cred",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "crossmint",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "dfns",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "dlocal",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "drift",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "dydx",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "dynamic",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "ebanx",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "eigenlabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "eigenlayer",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "epifi",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "ethena",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "euler",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "fern",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "fi",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "fireblocks",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "flare",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "flarenetworks",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "gelato",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "gemini",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "gusto",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "helius",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "highnote",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "hyperliquid",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "injective",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "inngest",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "jito",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "juno",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "jupiter",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "kamino",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "karbon",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "kast",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "kast-finance",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "kite",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "kiteai",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "knock",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "kraken",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "layerzerolabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "lido",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "lithic",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "loop",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "magic",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "mantle",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "matterlabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "mercury",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "mercuryo",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "mesh",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "meshconnect",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "meso",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "metaplex",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "moderntreasury",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "monad",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "monadlabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "monzo",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "moonpay",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "morpho",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "mural",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "mysten",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "nevermined",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "nium",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "offchainlabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "okx",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "ondo",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "ondofinance",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "onramper",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "openfort",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "oplabs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "optimism",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "oyster",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "para",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "paxos",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "payman",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "payoneer",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "payy",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "pendle",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "persona",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "phantom",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "pimlico",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "polygon",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "polymarket",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "portal",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "privy",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "rain",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "rainfi",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "ramp",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "rampnetwork",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "remote",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "request",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "requestfinance",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "resend",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sablier",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "safe",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "safeglobal",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sardine",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "scroll",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sei",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "seinetwork",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "skyfire",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "slice",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sling",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "solana",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "solanafoundation",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sphere",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sphere-labs",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "squads",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "stables",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "stackup",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "starkware",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "streamflow",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "strike",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "stripe",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sui",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "sumsub",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "superfluid",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "superteam",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "tempo-xyz",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "temporal",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "tensor",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "tether",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "thirdweb",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "thunes",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "toolsforhumanity",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "transak",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "turing",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "turnkey",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "uniswap",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "unit",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "utila",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "velocity",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "vertex",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "wise",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "workos",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "worldcoin",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "wormhole",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "x402",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "zerodev",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "zerohash",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "zerohashllc",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "zeropay",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "zeta",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "zksync",
+"category": "crypto-fintech",
+"source": "legacy-sweep"
+},
+{
+"slug": "paradigm",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "flashbots",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "consensys",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ripple",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "chainalysis",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "trmlabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "trm-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "elliptic",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "anza",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "jumpcrypto",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "jump",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "wintermute",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "dune",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "duneanalytics",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "nansen",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "1inch",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ledger",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "blockdaemon",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "figment",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "quicknode",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "avalabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ava-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "nearfoundation",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "near",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "celestia",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "celestialabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "espresso",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "espressosystems",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "succinct",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "succinctlabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "risczero",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "risc-zero",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "securitize",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "figure",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "figuretechnologies",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "zora",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "farcaster",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "merkle-manufactory",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "coinmetrics",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "messari",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "kaiko",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "bitpanda",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "bitstamp",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "crypto",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "cryptocom",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "blockchain",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "blockchaincom",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "galaxy",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "galaxydigital",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "robinhood",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "bullish",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ftx-us",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "anchoragedigital",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ledgerhq",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "alchemyinsurance",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "eigenda",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "nethermind",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "chainsafe",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "consensys-software",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "o1labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "aleo",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "provable",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "aztecnetwork",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "starknet",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "aave-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "avara",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "gnosis",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "cowswap",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "cow-protocol",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "lifi",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "li-fi",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "socket",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "bungee",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "across",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "risklabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "uma",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "axelar",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "thegraph",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "edgeandnode",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "the-graph-foundation",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "streamingfast",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "pyth",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "pythnetwork",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "douro-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "switchboard",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "marginfi",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "drift-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "mangomarkets",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "orca",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "raydium",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "magiceden",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "magic-eden",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "opensea",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "blur",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "dapperlabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "dapper-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "immutable",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ultra",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "animoca",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "yugalabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "worldcoin-foundation",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "tools-for-humanity",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "privy-io",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "coinshift",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "fordefi",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "blockaid",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "hypernative",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "certora",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "openzeppelin",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "trailofbits",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "trail-of-bits",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "spearbit",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "cantina",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "halborn",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "sigmaprime",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "offchain-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "arbitrumfoundation",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "ethereumfoundation",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "base-org",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "berachainlabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "monad-foundation",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "movementlabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "movement",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "initia",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "babylon",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "babylonlabs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "eigen-labs",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "symbiotic",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "karak",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "hyperlane",
+"category": "crypto",
+"source": "expansion"
+},
+{
+"slug": "openai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "anthropic",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "cohere",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "mistral",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "perplexity",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "perplexityai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "scaleai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "scale",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "huggingface",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "elevenlabs",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "runway",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "runwayml",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "character",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "characterai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "together",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "togetherai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "fireworksai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "fireworks",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "baseten",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "anyscale",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "deepgram",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "assemblyai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "harvey",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "sierra",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "decagon",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "glean",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "gleanwork",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "cognition",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "poolside",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "modal",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "modallabs",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "langchain",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "pinecone",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "weaviate",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "replicate",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "cursor",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "anysphere",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "replit",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "lovable",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "bolt",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "stackblitz",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "vapi",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "retell",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "writer",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "jasper",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "adept",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "inflection",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "xai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "mosaicml",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "databricks",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "snorkelai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "labelbox",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "cerebras",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "groq",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "sambanova",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "lambda",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "lambdalabs",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "coreweave",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "crusoe",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "mercor",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "hebbia",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "rogo",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "abridge",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "ambience",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "hippocraticai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "synthesia",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "descript",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "suno",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "pika",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "ideogram",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "midjourney",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "stability",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "stabilityai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "liquidai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "magic-dev",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "magicdev",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "reka",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "imbue",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "contextualai",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "vectara",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "llamaindex",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "chroma",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "qdrant",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "zilliz",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "braintrust",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "humanloop",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "arize",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "wandb",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "weightsandbiases",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "comet",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "cleanlab",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "galileo",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "patronus",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "vellum",
+"category": "ai",
+"source": "expansion"
+},
+{
+"slug": "plaid",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "chime",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "affirm",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "sofi",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "wealthsimple",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "nubank",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "razorpay",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "groww",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "phonepe",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "paytm",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "cashfree",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "juspay",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "jupiter-money",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "slice-it",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "zeta-tech",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "open-financial",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "setu",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "adyen",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "checkout",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "checkoutcom",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "marqeta",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "unit-finance",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "treasuryprime",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "synctera",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "increase",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "rho",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "novo",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "deel",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "rippling",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "justworks",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "remotecom",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "oyster-hr",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "papaya",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "airbase",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "navan",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "tipalti",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "bill",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "billcom",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "melio",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "pipe",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "capchase",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "clearco",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "carta",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "pulley",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "angellist",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "wealthfront",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "betterment",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "public",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "publiccom",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "acorns",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "stash",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "dave",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "current",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "varo",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "n26",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "revolut",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "monzo-bank",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "starling",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "wise-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "payoneer-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "flutterwave",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "paystack",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "chipper",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "chipper-cash",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "moniepoint",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "kuda",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "dlocal-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "rapyd",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "nium-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "airwallex-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "thunes-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "modern-treasury",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "moov",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "finix",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "stax",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "tilled",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "rainforest",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "lithic-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "highnote-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "galileo-financial",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "alloy",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "socure",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "sardine-ai",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "persona-careers",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "middesk",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "footprint",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "sila",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "synapse",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "column-bank",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "lead-bank",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "evolve",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "treasury-prime",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "orum",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "dwolla",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "alpaca",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "drivewealth",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "apex",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "apexfintech",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "atomic",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "atomicfi",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "pinwheel",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "argyle",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "truv",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "method",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "methodfi",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "spinwheel",
+"category": "fintech",
+"source": "expansion"
+},
+{
+"slug": "vercel",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "supabase",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "linear",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "notion",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "figma",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "retool",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "postman",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "hasura",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "sentry",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "getsentry",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "posthog",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "grafanalabs",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "grafana",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "hashicorp",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "datadog",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "cloudflare",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "mongodb",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "elastic",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "confluent",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "gitlab",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "netlify",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "render",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "railway",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "fly",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "flyio",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "neon",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "neondatabase",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "planetscale",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "cockroachlabs",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "clickhouse",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "dbtlabs",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "airbyte",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "fivetran",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "snyk",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "tailscale",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "sourcegraph",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "warp",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "warpdotdev",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "zed",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "zedindustries",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "deno",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "bun",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "oven",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "temporaltechnologies",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "prisma",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "convex",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "convex-dev",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "turso",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "chiselstrike",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "upstash",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "resend-careers",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "clerk-dev",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "workos-careers",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "stytch",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "descope",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "auth0",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "okta",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "browserstack",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "lambdatest",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "checkly",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "vanta",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "drata",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "secureframe",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "snyk-careers",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "semgrep",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "r2c",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "socket-dev",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "chainguard",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "docker",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "dockerinc",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "github",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "gitpod",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "coder",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "daytona",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "codesandbox",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "stackblitz-careers",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "expo",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "nativescript",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "ionic",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "sanity",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "contentful",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "storyblok",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "algolia",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "meilisearch",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "typesense",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "mux",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "livekit",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "agora",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "daily",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "twilio",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "sendgrid",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "segment",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "amplitude",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "mixpanel",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "heap",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "launchdarkly",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "statsig",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "growthbook",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "split",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "optimizely",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "pagerduty",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "incident",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "incidentio",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "rootly",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "firehydrant",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "honeycomb",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "lightstep",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "chronosphere",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "axiom",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "betterstack",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "logrocket",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "fullstory",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "highlight",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "cortex",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "port",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "getport",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "opslevel",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "backstage",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "harness",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "circleci",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "buildkite",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "depot",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "earthly",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "dagger",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "nx",
+"category": "devtools",
+"source": "expansion"
+},
+{
+"slug": "vercel-careers",
+"category": "devtools",
+"source": "expansion"
+}
+]

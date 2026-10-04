@@ -1,0 +1,233 @@
+"""Gazetteer: country, region, state and city aliases mapped to normalized codes.
+
+Countries use ISO 3166-1 alpha-2 codes (UK is used for the United Kingdom
+because that is how every job board writes it). Regions use upper-case words
+(GLOBAL, EMEA, EUROPE, EU, APAC, SEASIA, LATAM, NA, AMER, MENA).
+"""
+
+# --- countries -------------------------------------------------------------
+# code -> lower-case aliases (matched case-insensitively on word boundaries)
+COUNTRIES = {
+    "US": ["united states of america", "united states", "u.s.a.", "u.s.a", "u.s.", "usa", "america", "east coast", "west coast"],
+    "CA": ["canada", "canadian"],
+    "MX": ["mexico", "méxico"],
+    "BR": ["brazil", "brasil"],
+    "AR": ["argentina"],
+    "CO": ["colombia"],
+    "CL": ["chile"],
+    "PE": ["peru"],
+    "UY": ["uruguay"],
+    "CR": ["costa rica"],
+    "UK": ["united kingdom", "great britain", "britain", "england", "scotland", "wales", "northern ireland"],
+    "IE": ["ireland"],
+    "FR": ["france"],
+    "DE": ["germany", "deutschland"],
+    "NL": ["netherlands", "the netherlands", "holland"],
+    "BE": ["belgium"],
+    "LU": ["luxembourg"],
+    "ES": ["spain"],
+    "PT": ["portugal"],
+    "IT": ["italy"],
+    "CH": ["switzerland"],
+    "AT": ["austria"],
+    "PL": ["poland"],
+    "CZ": ["czechia", "czech republic"],
+    "SK": ["slovakia"],
+    "HU": ["hungary"],
+    "RO": ["romania"],
+    "BG": ["bulgaria"],
+    "GR": ["greece"],
+    "HR": ["croatia"],
+    "RS": ["serbia"],
+    "SI": ["slovenia"],
+    "EE": ["estonia"],
+    "LV": ["latvia"],
+    "LT": ["lithuania"],
+    "FI": ["finland"],
+    "SE": ["sweden"],
+    "NO": ["norway"],
+    "DK": ["denmark"],
+    "IS": ["iceland"],
+    "CY": ["cyprus"],
+    "MT": ["malta"],
+    "UA": ["ukraine"],
+    "TR": ["turkey", "türkiye", "turkiye"],
+    "IL": ["israel"],
+    "AE": ["united arab emirates", "u.a.e."],
+    "SA": ["saudi arabia"],
+    "QA": ["qatar"],
+    "BH": ["bahrain"],
+    "EG": ["egypt"],
+    "ZA": ["south africa"],
+    "NG": ["nigeria"],
+    "KE": ["kenya"],
+    "GH": ["ghana"],
+    "MA": ["morocco"],
+    "SC": ["seychelles"],
+    "IN": ["india"],
+    "PK": ["pakistan"],
+    "BD": ["bangladesh"],
+    "LK": ["sri lanka"],
+    "NP": ["nepal"],
+    "SG": ["singapore"],
+    "MY": ["malaysia"],
+    "ID": ["indonesia"],
+    "TH": ["thailand"],
+    "VN": ["vietnam", "viet nam"],
+    "PH": ["philippines"],
+    "HK": ["hong kong", "hong kong sar"],
+    "TW": ["taiwan"],
+    "CN": ["china", "mainland china"],
+    "JP": ["japan"],
+    "KR": ["south korea", "korea"],
+    "AU": ["australia"],
+    "NZ": ["new zealand"],
+    "AM": ["armenia"],
+    "KZ": ["kazakhstan"],
+    "AF": ["afghanistan"],
+    "DZ": ["algeria"],
+    "GE": ["tbilisi"],
+}
+
+# Upper-case abbreviations matched case-sensitively as standalone tokens.
+COUNTRY_CODES_CASED = {
+    "US": "US", "USA": "US", "U.S.": "US", "UK": "UK", "GB": "UK", "UAE": "AE",
+    "CA": "CA", "DE": "DE", "FR": "FR", "NL": "NL", "ES": "ES", "SG": "SG",
+    "AU": "AU", "NZ": "NZ", "JP": "JP", "BR": "BR", "MX": "MX", "IE": "IE",
+    "PL": "PL", "CZ": "CZ", "PT": "PT", "CH": "CH", "HK": "HK", "KR": "KR",
+}
+
+# --- regions ---------------------------------------------------------------
+REGIONS = {
+    "GLOBAL": ["anywhere in the world", "anywhere", "worldwide", "world wide", "global", "globally",
+               "international", "fully distributed", "work from anywhere", "all locations", "any location"],
+    "EMEA": ["emea"],
+    "EUROPE": ["europe", "european"],
+    "EU": ["european union", "eu/eea", "eea"],
+    "APAC": ["apac", "asia pacific", "asia-pacific", "asia", "oceania"],
+    "SEASIA": ["south east asia", "southeast asia", "south-east asia", "sea region"],
+    "LATAM": ["latam", "latin america", "south america", "central america"],
+    "NA": ["north america"],
+    "AMER": ["americas", "amer"],
+    "MENA": ["mena", "middle east"],
+}
+REGION_CODES_CASED = {"EU": "EU", "EMEA": "EMEA", "APAC": "APAC", "LATAM": "LATAM", "AMER": "AMER", "NAMER": "NA"}
+
+EU27 = ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT",
+        "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"]
+EUROPE = EU27 + ["UK", "CH", "NO", "IS", "UA", "RS", "TR"]
+MENA = ["AE", "SA", "QA", "BH", "EG", "MA", "IL", "DZ"]
+AFRICA = ["ZA", "NG", "KE", "GH", "EG", "MA", "SC", "DZ"]
+SEASIA = ["SG", "MY", "ID", "TH", "VN", "PH"]
+APAC = SEASIA + ["IN", "PK", "BD", "LK", "NP", "HK", "TW", "CN", "JP", "KR", "AU", "NZ"]
+NA = ["US", "CA", "MX"]
+LATAM = ["MX", "BR", "AR", "CO", "CL", "PE", "UY", "CR"]
+
+REGION_MEMBERS = {
+    "EU": EU27 + ["IS", "NO"],  # EEA, which is what "EU" means in hiring copy
+    "EUROPE": EUROPE,
+    "EMEA": sorted(set(EUROPE + MENA + AFRICA + ["AM", "GE", "KZ"])),
+    "MENA": MENA,
+    "APAC": APAC,
+    "SEASIA": SEASIA,
+    "NA": NA,
+    "LATAM": LATAM,
+    "AMER": sorted(set(NA + LATAM)),
+}
+
+# --- sub-national ----------------------------------------------------------
+US_STATES = {
+    "AL": "alabama", "AK": "alaska", "AZ": "arizona", "AR": "arkansas", "CA": "california",
+    "CO": "colorado", "CT": "connecticut", "DE": "delaware", "FL": "florida", "GA": "georgia",
+    "HI": "hawaii", "ID": "idaho", "IL": "illinois", "IN": "indiana", "IA": "iowa", "KS": "kansas",
+    "KY": "kentucky", "LA": "louisiana", "ME": "maine", "MD": "maryland", "MA": "massachusetts",
+    "MI": "michigan", "MN": "minnesota", "MS": "mississippi", "MO": "missouri", "MT": "montana",
+    "NE": "nebraska", "NV": "nevada", "NH": "new hampshire", "NJ": "new jersey", "NM": "new mexico",
+    "NY": "new york state", "NC": "north carolina", "ND": "north dakota", "OH": "ohio", "OK": "oklahoma",
+    "OR": "oregon", "PA": "pennsylvania", "RI": "rhode island", "SC": "south carolina",
+    "SD": "south dakota", "TN": "tennessee", "TX": "texas", "UT": "utah", "VT": "vermont",
+    "VA": "virginia", "WA": "washington", "WV": "west virginia", "WI": "wisconsin", "WY": "wyoming",
+    "DC": "district of columbia",
+}
+
+SUBDIVISIONS = {
+    "CA": ["ontario", "british columbia", "quebec", "québec", "alberta", "manitoba", "nova scotia", "saskatchewan"],
+    "IN": ["karnataka", "maharashtra", "telangana", "haryana", "tamil nadu", "delhi ncr", "ncr", "uttar pradesh", "west bengal", "gujarat"],
+    "AU": ["new south wales", "victoria", "queensland"],
+}
+
+CITIES = {
+    "US": ["san francisco", "south san francisco", "bay area", "sf bay area", "silicon valley", "new york city",
+           "new york", "new-york", "nyc", "brooklyn", "manhattan", "seattle", "austin", "boston", "chicago",
+           "los angeles", "denver", "boulder", "miami", "atlanta", "washington dc", "washington, d.c.",
+           "palo alto", "mountain view", "menlo park", "sunnyvale", "san jose", "san mateo", "redwood city",
+           "oakland", "berkeley", "portland", "salt lake city", "dallas", "houston", "phoenix",
+           "philadelphia", "pittsburgh", "raleigh", "nashville", "minneapolis", "detroit", "san diego",
+           "irvine", "jersey city", "charlotte", "cambridge, ma", "santa monica", "bellevue", "kirkland",
+           "lehi", "provo", "columbus", "st. louis", "tampa", "orlando"],
+    "CA": ["toronto", "vancouver", "montreal", "montréal", "ottawa", "waterloo", "calgary", "edmonton"],
+    "UK": ["london", "manchester", "edinburgh", "oxford", "bristol", "belfast", "leeds", "glasgow"],
+    "IE": ["dublin", "cork"],
+    "DE": ["berlin", "munich", "münchen", "hamburg", "frankfurt", "cologne"],
+    "FR": ["paris", "lyon"],
+    "NL": ["amsterdam", "rotterdam", "utrecht", "the hague"],
+    "ES": ["madrid", "barcelona", "valencia"],
+    "PT": ["lisbon", "porto"],
+    "CH": ["zurich", "zürich", "zug", "geneva", "lausanne", "crypto valley"],
+    "PL": ["warsaw", "krakow", "kraków", "wroclaw", "wrocław", "gdansk"],
+    "CZ": ["prague", "brno"],
+    "IT": ["milan", "rome"],
+    "SE": ["stockholm"],
+    "DK": ["copenhagen"],
+    "NO": ["oslo"],
+    "FI": ["helsinki"],
+    "AT": ["vienna"],
+    "EE": ["tallinn"],
+    "LT": ["vilnius"],
+    "LV": ["riga"],
+    "RO": ["bucharest", "cluj"],
+    "BG": ["sofia"],
+    "GR": ["athens"],
+    "UA": ["kyiv", "kiev"],
+    "TR": ["istanbul"],
+    "IL": ["tel aviv", "jerusalem"],
+    "AE": ["dubai", "abu dhabi"],
+    "IN": ["bengaluru", "bangalore", "mumbai", "new delhi", "delhi", "gurgaon", "gurugram", "noida",
+           "hyderabad", "pune", "chennai", "kolkata", "ahmedabad", "jaipur", "kochi", "indore", "chandigarh"],
+    "SG": [],
+    "HK": [],
+    "JP": ["tokyo", "osaka"],
+    "KR": ["seoul"],
+    "TW": ["taipei"],
+    "CN": ["shanghai", "beijing", "shenzhen", "hangzhou"],
+    "AU": ["sydney", "melbourne", "brisbane"],
+    "NZ": ["auckland", "wellington"],
+    "BR": ["são paulo", "sao paulo", "rio de janeiro"],
+    "AR": ["buenos aires"],
+    "MX": ["mexico city", "guadalajara"],
+    "CO": ["bogota", "bogotá", "medellin", "medellín"],
+    "CL": ["santiago"],
+    "NG": ["lagos"],
+    "KE": ["nairobi"],
+    "ZA": ["cape town", "johannesburg"],
+    "PH": ["manila"],
+    "ID": ["jakarta"],
+    "VN": ["ho chi minh city", "hanoi"],
+    "MY": ["kuala lumpur"],
+    "TH": ["bangkok"],
+}
+
+# Upper-case city abbreviations that boards actually use ("SF, SEA, NYC, CHI, ATL").
+CITY_CODES_CASED = {"SF": "US", "NYC": "US", "SEA": "US", "CHI": "US", "ATL": "US", "LA": "US",
+                    "SFO": "US", "BLR": "IN", "LDN": "UK", "DXB": "AE"}
+
+
+def region_contains(region: str, country: str) -> bool:
+    if region == "GLOBAL":
+        return True
+    if region == country:
+        return True
+    return country in REGION_MEMBERS.get(region, ())
+
+
+ALL_COUNTRY_CODES = sorted(set(COUNTRIES) | set(CITIES))

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jobradar"
+version = "0.1.0"
+description = "Search company job boards straight from Greenhouse, Ashby and Lever, with filters that don't lie."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+jobradar = "jobradar.cli:main"
+
+[tool.setuptools]
+packages = ["jobradar"]

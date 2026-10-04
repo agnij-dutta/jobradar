@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Radar</title>
+<meta name="description" content="Search company job boards straight from Greenhouse, Ashby and Lever. Filters for where you can actually work, what level the requirements imply, and what it pays.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="dot" aria-hidden="true"></span>
+    <h1>Job Radar</h1>
+  </div>
+  <p class="tagline">Every posting on every board, every time. Filters that read the requirements, not the title.</p>
+  <p class="meta" id="meta">Loading snapshot...</p>
+</header>
+
+<main class="layout">
+  <aside class="filters" id="filters" aria-label="Filters">
+    <div class="filters-head">
+      <strong>Filters</strong>
+      <button type="button" class="link" id="reset">Reset</button>
+    </div>
+
+    <label class="field">
+      <span>Stack keywords</span>
+      <input id="stack" type="text" placeholder="typescript, solidity, node" autocomplete="off" list="vocab">
+      <datalist id="vocab"></datalist>
+      <small>Scored against the full description, not just the title.</small>
+    </label>
+
+    <label class="field">
+      <span>I can work from</span>
+      <select id="region"><option value="">Anywhere (no geo filter)</option></select>
+    </label>
+    <label class="check"><input type="checkbox" id="unverified"> Include postings that never say where they hire</label>
+
+    <fieldset class="field">
+      <legend>Work mode</legend>
+      <div class="chips" id="mode">
+        <button type="button" data-v="" class="on">Any</button>
+        <button type="button" data-v="r">Remote</button>
+        <button type="button" data-v="h">Hybrid</button>
+        <button type="button" data-v="o">Onsite</button>
+      </div>
+    </fieldset>
+
+    <label class="field">
+      <span>Max years required <output id="yearsOut">any</output></span>
+      <input id="years" type="range" min="0" max="11" step="1" value="11">
+      <label class="check"><input type="checkbox" id="strictYears"> Hide postings that don't state years</label>
+    </label>
+
+    <fieldset class="field">
+      <legend>Level (from requirements first, title last)</legend>
+      <div class="chips" id="levels"></div>
+    </fieldset>
+
+    <label class="field">
+      <span>Min pay, top of band <output id="compOut">any</output></span>
+      <input id="comp" type="range" min="0" max="300" step="10" value="0">
+      <label class="check"><input type="checkbox" id="requireComp"> Only postings with a published band</label>
+    </label>
+
+    <label class="check"><input type="checkbox" id="visa"> Hide "no visa sponsorship"</label>
+    <label class="check"><input type="checkbox" id="eng" checked> Engineering roles only</label>
+
+    <label class="field">
+      <span>Title or company</span>
+      <input id="q" type="text" placeholder="backend, stripe" autocomplete="off">
+    </label>
+
+    <div class="newsince">
+      <label class="check"><input type="checkbox" id="newOnly"> Only new since last sweep</label>
+      <small>Off by default on purpose: a diff is not a search. The best match can sit on a board for weeks without ever being "new" on the day you look.</small>
+    </div>
+  </aside>
+
+  <section class="results" aria-live="polite">
+    <div class="bar">
+      <p id="count">...</p>
+      <div class="bar-right">
+        <button type="button" class="link mobile-only" id="toggleFilters">Filters</button>
+        <label class="sort">Sort
+          <select id="sort">
+            <option value="score">Best stack match</option>
+            <option value="new">Newest posted</option>
+            <option value="comp">Highest pay</option>
+            <option value="years">Fewest years</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <details class="excluded" id="excludedBox">
+      <summary id="excludedSummary">Why postings were excluded</summary>
+      <ul id="excluded"></ul>
+    </details>
+    <ol id="list" class="list"></ol>
+    <button type="button" id="more" class="more" hidden>Show more</button>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Data comes straight from public Greenhouse, Ashby and Lever board APIs. Geography, years and level are parsed from the posting text and can be wrong; every badge shows its evidence on hover or tap. Pay in USD uses approximate FX.</p>
+</footer>
+<script src="data/jobs.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

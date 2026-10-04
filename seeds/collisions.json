@@ -1,0 +1,142 @@
+[
+ {
+  "ats": "ashby",
+  "slug": "safe",
+  "note": "Safe Software (FME), not Safe{Wallet}"
+ },
+ {
+  "ats": "lever",
+  "slug": "safe",
+  "note": "Safe Security (cyber risk), not Safe{Wallet}"
+ },
+ {
+  "ats": "ashby",
+  "slug": "circle",
+  "note": "circle.so (community platform), not Circle (USDC)"
+ },
+ {
+  "ats": "ashby",
+  "slug": "sphere",
+  "note": "Sphere trade-compliance firm, not spherepay.co"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "juno",
+  "note": "Juno student-loan company"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "karbon",
+  "note": "Karbon accounting practice software"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "beam",
+  "note": "Bridge to Enter Advanced Mathematics (nonprofit)"
+ },
+ {
+  "ats": "ashby",
+  "slug": "mural",
+  "note": "Mural collaboration whiteboard, not Mural Pay"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "slice",
+  "note": "Slice pizza ordering app"
+ },
+ {
+  "ats": "ashby",
+  "slug": "ultra",
+  "note": "Ultra nicotine-free pouches"
+ },
+ {
+  "ats": "ashby",
+  "slug": "jump",
+  "note": "Jump (unrelated talent pool), not Jump Crypto"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "current",
+  "note": "Current digital agency, not Current the neobank"
+ },
+ {
+  "ats": "ashby",
+  "slug": "evolve",
+  "note": "Evolve quant recruiting firm"
+ },
+ {
+  "ats": "ashby",
+  "slug": "atomic",
+  "note": "Atomic venture studio, not Atomic (payroll API)"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "axiom",
+  "note": "Axiom legal services"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "galileo",
+  "note": "Galileo medical practice"
+ },
+ {
+  "ats": "ashby",
+  "slug": "switchboard",
+  "note": "Switchboard staffing agency, not Switchboard oracle"
+ },
+ {
+  "ats": "ashby",
+  "slug": "orum",
+  "note": "Orum sales dialer, not Orum payments"
+ },
+ {
+  "ats": "lever",
+  "slug": "alloy",
+  "note": "Alloy.ai commerce analytics, not Alloy identity"
+ },
+ {
+  "ats": "lever",
+  "slug": "sila",
+  "note": "Sila Services (HVAC), not Sila Money"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "knock",
+  "note": "Knock real-estate company, not Knock notifications"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "galaxy",
+  "note": "Galaxy Integrated Technologies, not Galaxy Digital"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "orca",
+  "note": "ORCA Service Technologies, not Orca DEX"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "remote",
+  "note": "General Assembly remote jobs board, not Remote.com"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "wise",
+  "note": "Wise Worksite field sales, not Wise (payments)"
+ },
+ {
+  "ats": "lever",
+  "slug": "fi",
+  "note": "Fi smart pet collar"
+ },
+ {
+  "ats": "ashby",
+  "slug": "gelato",
+  "note": "Gelato print-on-demand, not Gelato Network"
+ },
+ {
+  "ats": "greenhouse",
+  "slug": "kite",
+  "note": "Kite consumer app, not Kite AI"
+ }
+]
