@@ -13,6 +13,7 @@ Sources, in order of trust: the location field(s), restriction sentences in the
 description ("open to candidates in ..."), and finally the ATS's structured
 country field, which is only used when nothing else says anything.
 """
+
 from __future__ import annotations
 
 import re
@@ -97,9 +98,10 @@ def find_places(text: str, short_codes: bool = True) -> list[Place]:
 def _resolve_cased(text: str, start: int, tok: str, prior: list[Place], short_codes: bool):
     before = text[:start]
     # "US-CA", "US-NYC", "US-REM": the prefix decides
-    if re.search(r"\bUS\s?-\s?$", before):
-        if tok in G.US_STATES or tok in G.CITY_CODES_CASED or tok.startswith("REM"):
-            return ("US", "subdivision")
+    if re.search(r"\bUS\s?-\s?$", before) and (
+        tok in G.US_STATES or tok in G.CITY_CODES_CASED or tok.startswith("REM")
+    ):
+        return ("US", "subdivision")
     if re.search(r"\bCanada\s?-\s?$", before, re.I) and tok in _CA_PROVINCES:
         return ("CA", "subdivision")
     m = re.search(r",\s*$", before)
@@ -261,12 +263,15 @@ def parse_description_geo(desc: str) -> tuple[set[str], set[str], list[str], lis
             regions.add("GLOBAL")
             evidence.append(s)
             continue
-        if tz and not re.search(r"\b(located|based|reside|residing|resident|live|living|eligible|authori[sz]ed|hire|hiring)\b", s, re.I):
+        if tz and not re.search(
+            r"\b(located|based|reside|residing|resident|live|living|eligible|authori[sz]ed|hire|hiring)\b", s, re.I
+        ):
             # "must overlap with US time zones" constrains hours, not residency.
             if places:
                 tz_notes.append(s)
             continue
-        inc, exc = set(), set()
+        inc: set[str] = set()
+        exc: set[str] = set()
         cut = _EXCLUDE_KW.search(s)
         for p in places:
             (exc if cut and p.start >= cut.start() else inc).add(p.code)
@@ -283,10 +288,15 @@ def parse_description_geo(desc: str) -> tuple[set[str], set[str], list[str], lis
 
 _SPONSOR_WORD = re.compile(r"\b(sponsor\w*|visas?|immigration|work permits?)\b", re.I)
 _SPONSOR_NEG = [
-    re.compile(r"\b(no|not|unable to|cannot|can't|can not|won't|will not|do not|don't|does not|doesn't|"
-               r"aren't able to|are not able to|isn't|is not|without|neither|nor)\b[^.]{0,70}?"
-               r"\b(sponsor\w*|visas?|immigration|work permits?)\b", re.I),
-    re.compile(r"\b(sponsor\w*|visas?)\b[^.]{0,50}?\b(not (available|offered|provided|possible|supported)|unavailable)\b", re.I),
+    re.compile(
+        r"\b(no|not|unable to|cannot|can't|can not|won't|will not|do not|don't|does not|doesn't|"
+        r"aren't able to|are not able to|isn't|is not|without|neither|nor)\b[^.]{0,70}?"
+        r"\b(sponsor\w*|visas?|immigration|work permits?)\b",
+        re.I,
+    ),
+    re.compile(
+        r"\b(sponsor\w*|visas?)\b[^.]{0,50}?\b(not (available|offered|provided|possible|supported)|unavailable)\b", re.I
+    ),
 ]
 _SPONSOR_POS = re.compile(
     r"\b(visa sponsorship (is )?(available|offered|provided|possible)|"
@@ -328,6 +338,7 @@ def parse_sponsorship(desc: str) -> tuple[str, str | None]:
 
 # ------------------------------------------------------------------ combine --
 
+
 @dataclass
 class GeoResult:
     remote_mode: str
@@ -354,8 +365,12 @@ class GeoResult:
         }
 
 
-def parse_geo(location_texts: list[str], description: str = "", workplace_type: str | None = None,
-              structured_countries: list[str] | None = None) -> GeoResult:
+def parse_geo(
+    location_texts: list[str],
+    description: str = "",
+    workplace_type: str | None = None,
+    structured_countries: list[str] | None = None,
+) -> GeoResult:
     location_texts = [t for t in (location_texts or []) if t and t.strip()]
     mode = remote_mode(location_texts, workplace_type)
     loc_regions, loc_exc, loc_ev = parse_location_field(location_texts)
@@ -380,7 +395,9 @@ def parse_geo(location_texts: list[str], description: str = "", workplace_type: 
             # here is usually company boilerplate ("our team spans the US, UK...").
             regions = set(loc_specific)
             if d_specific - loc_specific:
-                evidence.append("description also names " + ", ".join(sorted(d_specific - loc_specific)) + " (not applied)")
+                evidence.append(
+                    "description also names " + ", ".join(sorted(d_specific - loc_specific)) + " (not applied)"
+                )
         elif loc_regions:
             regions = set(loc_regions)
         elif d_regions:

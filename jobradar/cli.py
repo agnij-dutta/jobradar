@@ -1,12 +1,13 @@
 """jobradar command line.
 
-  jobradar probe                 verify candidate slugs, write seeds/boards.json + seeds/dead.json
-  jobradar sweep                 fetch every board, write data/snapshot.json (+ SQLite history)
-  jobradar reparse               re-run parsers over the saved raw payloads, no network
-  jobradar search --stack ...    search the FULL current snapshot, with reasons
-  jobradar stats                 aggregate numbers
-  jobradar build                 build the static web UI into dist/
+jobradar probe                 verify candidate slugs, write seeds/boards.json + seeds/dead.json
+jobradar sweep                 fetch every board, write data/snapshot.json (+ SQLite history)
+jobradar reparse               re-run parsers over the saved raw payloads, no network
+jobradar search --stack ...    search the FULL current snapshot, with reasons
+jobradar stats                 aggregate numbers
+jobradar build                 build the static web UI into dist/
 """
+
 from __future__ import annotations
 
 import argparse
@@ -24,6 +25,7 @@ def _csv(s: str | None) -> list[str]:
 
 def cmd_probe(a) -> int:
     from . import seeds
+
     cands = seeds.load_json("candidates.json", [])
     if a.only:
         cands = [c for c in cands if c["slug"] in _csv(a.only)]
@@ -40,14 +42,20 @@ def cmd_probe(a) -> int:
         live.append({**b, **{k: v for k, v in prev.items() if k in ("company", "category", "note")}})
     (seeds.SEEDS / "boards.json").write_text(json.dumps(live, indent=1, ensure_ascii=False) + "\n")
     (seeds.SEEDS / "dead.json").write_text(json.dumps(r["dead"], indent=1) + "\n")
-    (seeds.SEEDS / "probe-review.json").write_text(json.dumps({"probed_at": r["probed_at"], "unconfirmed_identity": r["review"], "errors": r["errors"]}, indent=1) + "\n")
-    print(f"live boards: {len(live)} | dead slugs: {len(r['dead'])} | probe errors: {len(r['errors'])} | "
-          f"identity unconfirmed: {len(r['review'])}")
+    (seeds.SEEDS / "probe-review.json").write_text(
+        json.dumps({"probed_at": r["probed_at"], "unconfirmed_identity": r["review"], "errors": r["errors"]}, indent=1)
+        + "\n"
+    )
+    print(
+        f"live boards: {len(live)} | dead slugs: {len(r['dead'])} | probe errors: {len(r['errors'])} | "
+        f"identity unconfirmed: {len(r['review'])}"
+    )
     return 0
 
 
 def cmd_sweep(a) -> int:
     from . import sweep
+
     meta = sweep.run(workers=a.workers, log=lambda m: print(m, file=sys.stderr), only=_csv(a.only) or None)
     print(json.dumps(meta, indent=1))
     return 0 if meta["boards_error"] == 0 or not a.fail_on_error else 2
@@ -55,13 +63,16 @@ def cmd_sweep(a) -> int:
 
 def cmd_reparse(a) -> int:
     from . import sweep
+
     print(json.dumps(sweep.reparse(log=lambda m: print(m, file=sys.stderr)), indent=1))
     return 0
 
 
 def _load(path: str | None) -> dict:
-    from . import store
     from pathlib import Path
+
+    from . import store
+
     return store.load_snapshot(Path(path) if path else store.SNAPSHOT_PATH)
 
 
@@ -69,16 +80,19 @@ def _fmt_hit(i: int, h: S.Hit) -> str:
     p = h.posting
     comp = p.get("comp")
     comp_s = ""
-    if comp:
-        if comp.get("usd_min") is not None:
-            comp_s = f" | ~${comp['usd_min'] // 1000}k-{comp['usd_max'] // 1000}k" + ("" if comp["currency"] == "USD" else f" ({comp['currency']})")
+    if comp and comp.get("usd_min") is not None:
+        comp_s = f" | ~${comp['usd_min'] // 1000}k-{comp['usd_max'] // 1000}k" + (
+            "" if comp["currency"] == "USD" else f" ({comp['currency']})"
+        )
     yrs = "yrs ?" if p.get("min_years") is None else f"{p['min_years']:g}+ yrs"
-    head = (f"{i:>3}. [{h.score:>5}] {p['company']} | {p['title']}\n"
-            f"       {p.get('remote_mode')} | {', '.join(p.get('regions') or []) or 'geo unspecified'} | "
-            f"{yrs} | level {p.get('level') or '?'} | visa {p.get('sponsorship')}{comp_s}\n"
-            f"       {p['url']}")
+    head = (
+        f"{i:>3}. [{h.score:>5}] {p['company']} | {p['title']}\n"
+        f"       {p.get('remote_mode')} | {', '.join(p.get('regions') or []) or 'geo unspecified'} | "
+        f"{yrs} | level {p.get('level') or '?'} | visa {p.get('sponsorship')}{comp_s}\n"
+        f"       {p['url']}"
+    )
     body = [f"       + {w}" for w in h.why] + [f"       ! {c}" for c in h.caveats]
-    return "\n".join([head] + body)
+    return "\n".join([head, *body])
 
 
 def cmd_search(a) -> int:
@@ -87,23 +101,47 @@ def cmd_search(a) -> int:
     if new_since == "last":
         new_since = snap["meta"].get("previous_run_started_at") or snap["meta"].get("started_at")
     q = S.Query(
-        stack=_csv(a.stack), region=(a.region or "").upper() or None, include_unverified_geo=a.include_unverified,
-        max_years=a.max_years, strict_years=a.strict_years, levels=_csv(a.level), remote=a.remote,
-        min_comp_usd=a.min_comp, require_comp=a.require_comp, no_sponsorship_ok=not a.needs_visa,
-        engineering_only=not a.all_roles, company=a.company, title=a.title, text=a.text,
-        new_since=new_since, min_score=a.min_score,
+        stack=_csv(a.stack),
+        region=(a.region or "").upper() or None,
+        include_unverified_geo=a.include_unverified,
+        max_years=a.max_years,
+        strict_years=a.strict_years,
+        levels=_csv(a.level),
+        remote=a.remote,
+        min_comp_usd=a.min_comp,
+        require_comp=a.require_comp,
+        no_sponsorship_ok=not a.needs_visa,
+        engineering_only=not a.all_roles,
+        company=a.company,
+        title=a.title,
+        text=a.text,
+        new_since=new_since,
+        min_score=a.min_score,
     )
     hits, misses = S.run(snap["postings"], q)
     if a.json:
-        out = {"query": q.__dict__, "total": len(snap["postings"]), "matched": len(hits),
-               "results": [{"score": h.score, "why": h.why, "caveats": h.caveats,
-                            **{k: v for k, v in h.posting.items() if k != "description"}} for h in hits[: a.limit]],
-               "excluded_summary": S.summarize_exclusions(misses)}
+        out = {
+            "query": q.__dict__,
+            "total": len(snap["postings"]),
+            "matched": len(hits),
+            "results": [
+                {
+                    "score": h.score,
+                    "why": h.why,
+                    "caveats": h.caveats,
+                    **{k: v for k, v in h.posting.items() if k != "description"},
+                }
+                for h in hits[: a.limit]
+            ],
+            "excluded_summary": S.summarize_exclusions(misses),
+        }
         print(json.dumps(out, indent=1, ensure_ascii=False))
         return 0
     m = snap["meta"]
-    print(f"Searched ALL {len(snap['postings'])} current postings from {m.get('boards_total')} boards "
-          f"(snapshot {m.get('finished_at')}). {len(hits)} match.\n")
+    print(
+        f"Searched ALL {len(snap['postings'])} current postings from {m.get('boards_total')} boards "
+        f"(snapshot {m.get('finished_at')}). {len(hits)} match.\n"
+    )
     for i, h in enumerate(hits[: a.limit], 1):
         print(_fmt_hit(i, h))
         print()
@@ -127,6 +165,7 @@ def cmd_search(a) -> int:
 
 def cmd_stats(a) -> int:
     from . import stats
+
     snap = _load(a.snapshot)
     st = stats.compute(snap, home=a.home.upper())
     print(json.dumps(st, indent=1) if a.json else stats.render(st, home=a.home.upper()))
@@ -135,6 +174,7 @@ def cmd_stats(a) -> int:
 
 def cmd_build(a) -> int:
     from . import webbuild
+
     out = webbuild.build(snapshot_path=a.snapshot, out_dir=a.out)
     print(json.dumps(out, indent=1))
     return 0
@@ -162,7 +202,9 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("search", help="search the full current snapshot")
     p.add_argument("--stack", help="comma-separated terms, e.g. typescript,solidity")
     p.add_argument("--region", help="your country (ISO code, e.g. IN); keeps only postings open to it")
-    p.add_argument("--include-unverified", action="store_true", help="also keep postings that never say where they hire")
+    p.add_argument(
+        "--include-unverified", action="store_true", help="also keep postings that never say where they hire"
+    )
     p.add_argument("--max-years", type=float, help="drop postings requiring more years than this")
     p.add_argument("--strict-years", action="store_true", help="also drop postings that do not state years")
     p.add_argument("--level", help=f"comma-separated levels: {','.join(LEVELS)}")

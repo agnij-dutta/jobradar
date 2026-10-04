@@ -3,6 +3,7 @@
 Every term is a regex so that "Go" the language does not match "go to market"
 and "TS" does not match every sentence that ends in "ts".
 """
+
 from __future__ import annotations
 
 import re
@@ -75,11 +76,30 @@ VOCAB: dict[str, str] = {
 }
 
 ALIASES = {
-    "ts": "typescript", "js": "javascript", "nodejs": "node", "node.js": "node", "golang": "go",
-    "postgresql": "postgres", "pg": "postgres", "k8s": "kubernetes", "next": "nextjs", "next.js": "nextjs",
-    "reactjs": "react", "sol": "solidity", "zero-knowledge": "zk", "ethers": "viem", "wagmi": "viem",
-    "ai": "llm", "agents": "ai-agents", "smart contracts": "smart-contracts", "smart-contract": "smart-contracts",
-    "rn": "react-native", "cpp": "c++", "dotnet": "c#", "stablecoins": "stablecoin", "web3": "ethereum",
+    "ts": "typescript",
+    "js": "javascript",
+    "nodejs": "node",
+    "node.js": "node",
+    "golang": "go",
+    "postgresql": "postgres",
+    "pg": "postgres",
+    "k8s": "kubernetes",
+    "next": "nextjs",
+    "next.js": "nextjs",
+    "reactjs": "react",
+    "sol": "solidity",
+    "zero-knowledge": "zk",
+    "ethers": "viem",
+    "wagmi": "viem",
+    "ai": "llm",
+    "agents": "ai-agents",
+    "smart contracts": "smart-contracts",
+    "smart-contract": "smart-contracts",
+    "rn": "react-native",
+    "cpp": "c++",
+    "dotnet": "c#",
+    "stablecoins": "stablecoin",
+    "web3": "ethereum",
 }
 
 _COMPILED = {k: re.compile(v, re.I) for k, v in VOCAB.items()}

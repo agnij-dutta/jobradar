@@ -1,5 +1,3 @@
-import json
-import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -12,8 +10,19 @@ from jobradar.stack import score, tag_counts
 
 class Comp(unittest.TestCase):
     def test_ashby_structured(self):
-        c = parse_comp.from_ashby({"summaryComponents": [
-            {"compensationType": "Salary", "interval": "1 YEAR", "currencyCode": "USD", "minValue": 170000, "maxValue": 240000}]})
+        c = parse_comp.from_ashby(
+            {
+                "summaryComponents": [
+                    {
+                        "compensationType": "Salary",
+                        "interval": "1 YEAR",
+                        "currencyCode": "USD",
+                        "minValue": 170000,
+                        "maxValue": 240000,
+                    }
+                ]
+            }
+        )
         self.assertEqual((c["usd_min"], c["usd_max"], c["source"]), (170000, 240000, "ats"))
 
     def test_lever_structured(self):
@@ -43,7 +52,9 @@ class Stack(unittest.TestCase):
         self.assertNotIn("java", t)
 
     def test_score_explains(self):
-        s, matched, missing = score("Backend Engineer", "TypeScript, Node.js and Postgres. Some Solidity.", ["ts", "solidity", "rust"])
+        s, matched, missing = score(
+            "Backend Engineer", "TypeScript, Node.js and Postgres. Some Solidity.", ["ts", "solidity", "rust"]
+        )
         self.assertGreater(s, 0)
         self.assertEqual(missing, ["rust"])
         self.assertTrue(any(m.startswith("typescript") for m in matched))
@@ -60,19 +71,40 @@ class Stack(unittest.TestCase):
 
 
 def _ashby_job(jid, title, loc, desc, workplace="Remote", comp=None):
-    return {"id": jid, "title": title, "location": loc, "secondaryLocations": [], "isRemote": workplace == "Remote",
-            "workplaceType": workplace, "jobUrl": f"https://jobs.ashbyhq.com/acme/{jid}", "descriptionPlain": desc,
-            "publishedAt": "2026-09-01T00:00:00Z", "team": "Engineering", "compensation": comp}
+    return {
+        "id": jid,
+        "title": title,
+        "location": loc,
+        "secondaryLocations": [],
+        "isRemote": workplace == "Remote",
+        "workplaceType": workplace,
+        "jobUrl": f"https://jobs.ashbyhq.com/acme/{jid}",
+        "descriptionPlain": desc,
+        "publishedAt": "2026-09-01T00:00:00Z",
+        "team": "Engineering",
+        "compensation": comp,
+    }
 
 
 class SearchEndToEnd(unittest.TestCase):
     def setUp(self):
         jobs = [
-            _ashby_job("1", "Software Engineer", "Remote",
-                       "Open to candidates located in the US or Canada. 6+ years of experience with TypeScript."),
-            _ashby_job("2", "Backend Engineer E2", "Bengaluru, India",
-                       "3+ years of experience with TypeScript, Node.js and Solidity.", workplace="OnSite"),
-            _ashby_job("3", "Protocol Engineer", "Remote - Anywhere", "2+ years of Solidity experience. Work from anywhere."),
+            _ashby_job(
+                "1",
+                "Software Engineer",
+                "Remote",
+                "Open to candidates located in the US or Canada. 6+ years of experience with TypeScript.",
+            ),
+            _ashby_job(
+                "2",
+                "Backend Engineer E2",
+                "Bengaluru, India",
+                "3+ years of experience with TypeScript, Node.js and Solidity.",
+                workplace="OnSite",
+            ),
+            _ashby_job(
+                "3", "Protocol Engineer", "Remote - Anywhere", "2+ years of Solidity experience. Work from anywhere."
+            ),
             _ashby_job("4", "Account Executive", "Remote - Anywhere", "Sell things."),
             _ashby_job("5", "Frontend Engineer", "Remote", "React and TypeScript."),
         ]
@@ -103,7 +135,9 @@ class SearchEndToEnd(unittest.TestCase):
         q = Query(new_since="2026-10-01T00:00:00+00:00")
         hits, misses = run(self.posts, q)
         self.assertEqual(hits, [])
-        self.assertTrue(all(any("not new since" in r for r in m.reasons) for m in misses if m.posting["is_engineering"]))
+        self.assertTrue(
+            all(any("not new since" in r for r in m.reasons) for m in misses if m.posting["is_engineering"])
+        )
 
 
 class StoreSemantics(unittest.TestCase):
@@ -114,7 +148,9 @@ class StoreSemantics(unittest.TestCase):
             board = {"board": "ashby:acme", "ats": "ashby", "slug": "acme", "company": "Acme"}
             store.record_run(con, "r1", "t1", "t1", [{**board, "status": "ok", "count": 1}], {"ashby:acme": [p]})
             # second run: the fetch failed. The posting must survive, marked stale.
-            store.record_run(con, "r2", "t2", "t2", [{**board, "status": "error", "error": "timeout"}], {"ashby:acme": []})
+            store.record_run(
+                con, "r2", "t2", "t2", [{**board, "status": "error", "error": "timeout"}], {"ashby:acme": []}
+            )
             cur = store.current_postings(con, {"ashby:acme": "error"})
             self.assertEqual(len(cur), 1)
             self.assertTrue(cur[0]["stale"])
@@ -127,7 +163,14 @@ class StoreSemantics(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             con = store.connect(Path(d) / "t.sqlite")
             p = {"id": "ashby:acme:1", "title": "x"}
-            board = {"board": "ashby:acme", "ats": "ashby", "slug": "acme", "company": "Acme", "status": "ok", "count": 1}
+            board = {
+                "board": "ashby:acme",
+                "ats": "ashby",
+                "slug": "acme",
+                "company": "Acme",
+                "status": "ok",
+                "count": 1,
+            }
             a = store.record_run(con, "r1", "t1", "t1", [board], {"ashby:acme": [p]})
             b = store.record_run(con, "r2", "t2", "t2", [board], {"ashby:acme": [p]})
             self.assertEqual((a["new_postings"], b["new_postings"]), (1, 0))

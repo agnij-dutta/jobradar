@@ -5,6 +5,7 @@ counts, so the browser can filter thousands of postings instantly. It is a
 <script> (window.JOBRADAR = ...) rather than JSON so dist/index.html also works
 when opened straight from disk.
 """
+
 from __future__ import annotations
 
 import json
@@ -40,11 +41,18 @@ def slim(p: dict, companies: dict, seen_times: dict) -> dict:
     if fs not in seen_times:
         seen_times[fs] = len(seen_times)
     out = {
-        "c": companies[ckey], "t": p.get("title"), "u": p.get("url"), "tm": p.get("team"),
-        "l": _short(p.get("location_raw"), 120), "m": _MODE.get(p.get("remote_mode"), "u"),
-        "r": p.get("regions") or [], "s": _SCOPE.get(p.get("geo_scope"), "u"),
-        "v": _VISA.get(p.get("sponsorship"), "u"), "e": 1 if p.get("is_engineering") else 0,
-        "f": seen_times[fs], "d": (p.get("posted_at") or p.get("updated_at") or "")[:10],
+        "c": companies[ckey],
+        "t": p.get("title"),
+        "u": p.get("url"),
+        "tm": p.get("team"),
+        "l": _short(p.get("location_raw"), 120),
+        "m": _MODE.get(p.get("remote_mode") or "", "u"),
+        "r": p.get("regions") or [],
+        "s": _SCOPE.get(p.get("geo_scope") or "", "u"),
+        "v": _VISA.get(p.get("sponsorship") or "", "u"),
+        "e": 1 if p.get("is_engineering") else 0,
+        "f": seen_times[fs],
+        "d": (p.get("posted_at") or p.get("updated_at") or "")[:10],
         "k": p.get("tags") or {},
     }
     if p.get("excluded_regions"):

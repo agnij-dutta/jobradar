@@ -4,9 +4,11 @@ backoff on 429/5xx, Retry-After honoured. Stdlib only.
 Every call returns a FetchResult with an explicit status so that a network error
 can never be mistaken for "this company has no jobs".
 """
+
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
 import urllib.error
@@ -14,10 +16,11 @@ import urllib.request
 from dataclasses import dataclass
 from urllib.parse import urlparse
 
-USER_AGENT = "jobradar/0.1 (open-source job search; polite crawler)"
+# Override the user agent to add contact details if you run large sweeps.
+USER_AGENT = os.environ.get("JOBRADAR_USER_AGENT") or "jobradar/0.1 (+https://github.com/agnij-dutta/jobradar)"
 
-PER_HOST_CONCURRENCY = 3
-MIN_INTERVAL_S = 0.25  # per host, between request starts
+PER_HOST_CONCURRENCY = int(os.environ.get("JOBRADAR_PER_HOST_CONCURRENCY") or 3)
+MIN_INTERVAL_S = float(os.environ.get("JOBRADAR_MIN_INTERVAL_S") or 0.25)  # per host, between request starts
 MAX_RETRIES = 3
 
 _host_sems: dict[str, threading.Semaphore] = {}
@@ -27,7 +30,7 @@ _lock = threading.Lock()
 
 @dataclass
 class FetchResult:
-    status: str            # ok | not_found | error
+    status: str  # ok | not_found | error
     http_status: int | None
     data: object = None
     error: str | None = None
@@ -79,12 +82,12 @@ def get_json(url: str, timeout: float = 45.0) -> FetchResult:
                 last_err = f"HTTP {e.code}"
                 retry_after = e.headers.get("Retry-After") if e.headers else None
                 if e.code == 429 or e.code >= 500:
-                    delay = float(retry_after) if (retry_after and retry_after.isdigit()) else 1.5 * (2 ** attempt)
+                    delay = float(retry_after) if (retry_after and retry_after.isdigit()) else 1.5 * (2**attempt)
                     time.sleep(min(delay, 30))
                     continue
                 return FetchResult("error", e.code, None, last_err, time.monotonic() - t0)
             except Exception as e:  # timeouts, DNS, resets
                 last_err = f"{type(e).__name__}: {e}"
-                time.sleep(1.0 * (2 ** attempt))
+                time.sleep(1.0 * (2**attempt))
                 continue
     return FetchResult("error", last_code, None, last_err, time.monotonic() - t0)

@@ -9,20 +9,30 @@ from jobradar.ats import normalize
 
 class WebBuild(unittest.TestCase):
     def test_build_writes_loadable_data(self):
-        job = {"id": "1", "title": "Backend Engineer", "location": "Remote", "secondaryLocations": [],
-               "workplaceType": "Remote", "jobUrl": "https://jobs.ashbyhq.com/acme/1",
-               "descriptionPlain": "Open to candidates located in India. 2+ years of TypeScript experience.",
-               "publishedAt": "2026-09-01T00:00:00Z"}
+        job = {
+            "id": "1",
+            "title": "Backend Engineer",
+            "location": "Remote",
+            "secondaryLocations": [],
+            "workplaceType": "Remote",
+            "jobUrl": "https://jobs.ashbyhq.com/acme/1",
+            "descriptionPlain": "Open to candidates located in India. 2+ years of TypeScript experience.",
+            "publishedAt": "2026-09-01T00:00:00Z",
+        }
         p = normalize("ashby", "acme", "Acme", job)
         p["first_seen"] = "2026-09-01T00:00:00+00:00"
         with tempfile.TemporaryDirectory() as d:
             snap = Path(d) / "snapshot.json"
-            store.write_snapshot({"boards_total": 1, "finished_at": "2026-10-04T00:00:00+00:00"},
-                                 [{"board": "ashby:acme", "status": "ok"}], [p], snap)
+            store.write_snapshot(
+                {"boards_total": 1, "finished_at": "2026-10-04T00:00:00+00:00"},
+                [{"board": "ashby:acme", "status": "ok"}],
+                [p],
+                snap,
+            )
             out = webbuild.build(str(snap), str(Path(d) / "dist"))
             js = (Path(out["out"]) / "data" / "jobs.js").read_text()
             self.assertTrue(js.startswith("window.JOBRADAR="))
-            data = json.loads(js[len("window.JOBRADAR="):].rstrip().rstrip(";"))
+            data = json.loads(js[len("window.JOBRADAR=") :].rstrip().rstrip(";"))
             row = data["postings"][0]
             self.assertEqual((row["m"], row["r"], row["y"]), ("r", ["IN"], 2))
             self.assertNotIn("description", row)

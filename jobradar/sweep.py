@@ -1,4 +1,5 @@
 """Full sweep: fetch every seeded board in parallel, normalize, store, snapshot."""
+
 from __future__ import annotations
 
 import concurrent.futures as cf
@@ -57,8 +58,14 @@ def fetch_one(b: dict) -> tuple[dict, list[dict]]:
     board = f"{b['ats']}:{b['slug']}"
     t0 = time.monotonic()
     r = fetch_board(b["ats"], b["slug"])
-    res = {"board": board, "ats": b["ats"], "slug": b["slug"], "company": b.get("company") or b["slug"],
-           "category": b.get("category"), "elapsed_s": round(time.monotonic() - t0, 2)}
+    res = {
+        "board": board,
+        "ats": b["ats"],
+        "slug": b["slug"],
+        "company": b.get("company") or b["slug"],
+        "category": b.get("category"),
+        "elapsed_s": round(time.monotonic() - t0, 2),
+    }
     if r.status == "not_found":
         # A verified board that now 404s is an ERROR, not an empty board.
         res.update(status="error", error=f"board missing ({r.http_status}); slug may have moved")
@@ -105,9 +112,12 @@ def run(workers: int = 12, log=print, only: list[str] | None = None) -> dict:
     current = store.current_postings(con, status)
     results.sort(key=lambda r: r["board"])
     meta = {
-        "run_id": started, "started_at": started, "finished_at": finished,
+        "run_id": started,
+        "started_at": started,
+        "finished_at": finished,
         "previous_run_started_at": prev_run,
-        "boards_total": len(results), **counters,
+        "boards_total": len(results),
+        **counters,
         "postings_in_snapshot": len(current),
         "stale_postings": sum(1 for p in current if p.get("stale")),
     }

@@ -7,14 +7,16 @@ set; search always runs over all of it.
 Board-level failure semantics: if a board errors, its previously-known postings
 stay in the snapshot marked stale. An error is never treated as "no jobs".
 """
+
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
+DATA = Path(os.environ.get("JOBRADAR_DATA_DIR") or ROOT / "data")
 DB_PATH = DATA / "jobradar.sqlite"
 SNAPSHOT_PATH = DATA / "snapshot.json"
 
@@ -43,8 +45,14 @@ def connect(path: Path = DB_PATH) -> sqlite3.Connection:
     return con
 
 
-def record_run(con: sqlite3.Connection, run_id: str, started: str, finished: str,
-               board_results: list[dict], postings_by_board: dict[str, list[dict]]) -> dict:
+def record_run(
+    con: sqlite3.Connection,
+    run_id: str,
+    started: str,
+    finished: str,
+    board_results: list[dict],
+    postings_by_board: dict[str, list[dict]],
+) -> dict:
     """Idempotent upsert of one sweep. Returns counters."""
     new = closed = 0
     cur = con.cursor()
@@ -55,8 +63,17 @@ def record_run(con: sqlite3.Connection, run_id: str, started: str, finished: str
             "VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(board) DO UPDATE SET company=excluded.company, "
             "last_status=excluded.last_status, last_count=excluded.last_count, last_error=excluded.last_error, "
             "last_ok_at=COALESCE(excluded.last_ok_at, boards.last_ok_at), last_run_id=excluded.last_run_id",
-            (board, br["ats"], br["slug"], br["company"], br["status"], br.get("count"), br.get("error"),
-             finished if br["status"] in ("ok", "empty") else None, run_id),
+            (
+                board,
+                br["ats"],
+                br["slug"],
+                br["company"],
+                br["status"],
+                br.get("count"),
+                br.get("error"),
+                finished if br["status"] in ("ok", "empty") else None,
+                run_id,
+            ),
         )
         if br["status"] == "error":
             continue  # keep whatever we knew; never close postings on a failed fetch
@@ -66,11 +83,15 @@ def record_run(con: sqlite3.Connection, run_id: str, started: str, finished: str
             row = cur.execute("SELECT first_seen FROM postings WHERE id=?", (p["id"],)).fetchone()
             if row is None:
                 new += 1
-                cur.execute("INSERT INTO postings(id, board, first_seen, last_seen, closed_at, data) VALUES(?,?,?,?,NULL,?)",
-                            (p["id"], board, started, finished, json.dumps(p)))
+                cur.execute(
+                    "INSERT INTO postings(id, board, first_seen, last_seen, closed_at, data) VALUES(?,?,?,?,NULL,?)",
+                    (p["id"], board, started, finished, json.dumps(p)),
+                )
             else:
-                cur.execute("UPDATE postings SET last_seen=?, closed_at=NULL, data=? WHERE id=?",
-                            (finished, json.dumps(p), p["id"]))
+                cur.execute(
+                    "UPDATE postings SET last_seen=?, closed_at=NULL, data=? WHERE id=?",
+                    (finished, json.dumps(p), p["id"]),
+                )
         open_ids = [r[0] for r in cur.execute("SELECT id FROM postings WHERE board=? AND closed_at IS NULL", (board,))]
         for pid in open_ids:
             if pid not in seen_ids:
@@ -80,17 +101,26 @@ def record_run(con: sqlite3.Connection, run_id: str, started: str, finished: str
     empty = sum(1 for b in board_results if b["status"] == "empty")
     err = sum(1 for b in board_results if b["status"] == "error")
     total = sum(len(v) for v in postings_by_board.values())
-    cur.execute("INSERT OR REPLACE INTO runs VALUES(?,?,?,?,?,?,?,?,?)",
-                (run_id, started, finished, ok, empty, err, total, new, closed))
+    cur.execute(
+        "INSERT OR REPLACE INTO runs VALUES(?,?,?,?,?,?,?,?,?)",
+        (run_id, started, finished, ok, empty, err, total, new, closed),
+    )
     con.commit()
-    return {"boards_ok": ok, "boards_empty": empty, "boards_error": err, "postings": total,
-            "new_postings": new, "closed_postings": closed}
+    return {
+        "boards_ok": ok,
+        "boards_empty": empty,
+        "boards_error": err,
+        "postings": total,
+        "new_postings": new,
+        "closed_postings": closed,
+    }
 
 
 def current_postings(con: sqlite3.Connection, board_status: dict[str, str]) -> list[dict]:
     out = []
-    for pid, board, first_seen, last_seen, data in con.execute(
-            "SELECT id, board, first_seen, last_seen, data FROM postings WHERE closed_at IS NULL ORDER BY id"):
+    for _pid, board, first_seen, last_seen, data in con.execute(
+        "SELECT id, board, first_seen, last_seen, data FROM postings WHERE closed_at IS NULL ORDER BY id"
+    ):
         if board not in board_status:
             continue  # board no longer in the seed list
         p = json.loads(data)

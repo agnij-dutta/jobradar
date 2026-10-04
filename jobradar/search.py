@@ -4,6 +4,7 @@ Every posting ends up either in `results` (with reasons it matched and any
 caveats) or in `excluded` (with every reason it was filtered out), so nothing
 disappears silently.
 """
+
 from __future__ import annotations
 
 import re
@@ -17,20 +18,20 @@ from .stack import score
 @dataclass
 class Query:
     stack: list[str] = field(default_factory=list)
-    region: str | None = None            # ISO country of the searcher, e.g. IN
+    region: str | None = None  # ISO country of the searcher, e.g. IN
     include_unverified_geo: bool = False  # keep "Remote" postings that never say where
     max_years: float | None = None
-    strict_years: bool = False           # drop postings that do not state years
+    strict_years: bool = False  # drop postings that do not state years
     levels: list[str] = field(default_factory=list)
     remote: bool = False
     min_comp_usd: int | None = None
     require_comp: bool = False
-    no_sponsorship_ok: bool = True       # False: drop postings that say "no sponsorship"
+    no_sponsorship_ok: bool = True  # False: drop postings that say "no sponsorship"
     engineering_only: bool = True
     company: str | None = None
     title: str | None = None
     text: str | None = None
-    new_since: str | None = None         # ISO timestamp; first_seen must be after it
+    new_since: str | None = None  # ISO timestamp; first_seen must be after it
     min_score: float = 0.0
 
 
@@ -82,7 +83,9 @@ def evaluate(p: dict, q: Query) -> tuple[bool, float, list[str], list[str], list
             reasons.append(f"stack score {sc} below {q.min_score}")
 
     if q.region:
-        e = eligible(p.get("regions") or [], p.get("excluded_regions") or [], q.region, p.get("geo_scope", "unspecified"))
+        e = eligible(
+            p.get("regions") or [], p.get("excluded_regions") or [], q.region, p.get("geo_scope", "unspecified")
+        )
         where = ", ".join(p.get("regions") or []) or "unspecified"
         if e == "yes":
             why.append(f"open to {q.region} (regions: {where}; from {p.get('geo_source')})")
@@ -104,7 +107,9 @@ def evaluate(p: dict, q: Query) -> tuple[bool, float, list[str], list[str], list
             if q.strict_years:
                 reasons.append("years not stated (strict)")
             else:
-                caveats.append("years not stated" + (f"; prefers {p['preferred_years']:g}+" if p.get("preferred_years") else ""))
+                caveats.append(
+                    "years not stated" + (f"; prefers {p['preferred_years']:g}+" if p.get("preferred_years") else "")
+                )
         elif y > q.max_years:
             t = f"requires {y:g}+ years (max {q.max_years:g})"
             if p.get("plain_title"):
@@ -199,4 +204,4 @@ def summarize_exclusions(misses: list[Miss]) -> list[tuple[str, int]]:
     return sorted(counts.items(), key=lambda kv: -kv[1])
 
 
-__all__ = ["Query", "Hit", "Miss", "run", "evaluate", "summarize_exclusions", "LEVELS", "RANK"]
+__all__ = ["LEVELS", "RANK", "Hit", "Miss", "Query", "evaluate", "run", "summarize_exclusions"]

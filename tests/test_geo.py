@@ -1,5 +1,6 @@
 """Geography parser tests. Location strings are real values seen on Greenhouse,
 Ashby and Lever boards; description snippets are paraphrased from real postings."""
+
 import unittest
 
 from jobradar.parse_geo import eligible, parse_geo, parse_sponsorship
@@ -94,10 +95,12 @@ class LocationField(unittest.TestCase):
 
 
 class DescriptionRestrictions(unittest.TestCase):
-    CARD = ("About the role\nWe are building the card stack for the internet. "
-            "This role is fully remote and open to candidates located in the US, Canada (Ontario or British "
-            "Columbia only), the Netherlands, Poland and Czechia. We are unable to offer visa sponsorship for "
-            "this position.")
+    CARD = (
+        "About the role\nWe are building the card stack for the internet. "
+        "This role is fully remote and open to candidates located in the US, Canada (Ontario or British "
+        "Columbia only), the Netherlands, Poland and Czechia. We are unable to offer visa sponsorship for "
+        "this position."
+    )
 
     def test_remote_restricted_by_description(self):
         r = geo("Remote", self.CARD, wt="Remote")
@@ -118,8 +121,11 @@ class DescriptionRestrictions(unittest.TestCase):
         self.assertEqual(r.regions, ["US"])
 
     def test_company_hq_is_not_a_restriction(self):
-        r = geo("Remote", "We are headquartered in San Francisco and have offices in London and Singapore. "
-                          "Our customers are located in over 40 countries.")
+        r = geo(
+            "Remote",
+            "We are headquartered in San Francisco and have offices in London and Singapore. "
+            "Our customers are located in over 40 countries.",
+        )
         self.assertEqual(r.geo_scope, "unspecified")
 
     def test_pay_transparency_is_not_a_restriction(self):
@@ -127,7 +133,9 @@ class DescriptionRestrictions(unittest.TestCase):
         self.assertEqual(r.geo_scope, "unspecified")
 
     def test_timezone_overlap_is_not_residency(self):
-        r = geo("Remote", "You should be comfortable working with at least 4 hours of overlap with US Eastern time zones.")
+        r = geo(
+            "Remote", "You should be comfortable working with at least 4 hours of overlap with US Eastern time zones."
+        )
         self.assertEqual(r.geo_scope, "unspecified")
 
     def test_work_from_anywhere(self):
@@ -135,7 +143,10 @@ class DescriptionRestrictions(unittest.TestCase):
         self.assertEqual(r.geo_scope, "global")
 
     def test_cannot_hire_in(self):
-        r = geo("Remote - Europe", "Unfortunately we cannot hire candidates in Russia or Belarus, or in Germany at this time.")
+        r = geo(
+            "Remote - Europe",
+            "Unfortunately we cannot hire candidates in Russia or Belarus, or in Germany at this time.",
+        )
         self.assertIn("DE", r.excluded)
 
     def test_ats_country_field_is_last_resort(self):

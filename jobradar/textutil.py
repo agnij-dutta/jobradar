@@ -1,4 +1,5 @@
 """Text helpers: HTML to plain text, sentence/line splitting, dash normalization."""
+
 import html
 import re
 
@@ -29,8 +30,7 @@ def html_to_text(s: str | None) -> str:
 
 
 def normalize_dashes(s: str) -> str:
-    return (s.replace("–", "-").replace("—", "-").replace("‒", "-")
-             .replace("−", "-").replace("‑", "-"))
+    return s.replace("–", "-").replace("—", "-").replace("‒", "-").replace("−", "-").replace("‑", "-")
 
 
 _SENT = re.compile(r"(?<=[.!?;])\s+(?=[A-Z(\"'])|\n+")

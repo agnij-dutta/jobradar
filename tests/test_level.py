@@ -1,4 +1,5 @@
 """Years-of-experience and level parser tests, from real requirement phrasings."""
+
 import unittest
 
 from jobradar.parse_level import level_code, min_years, parse_level
@@ -26,16 +27,24 @@ class Years(unittest.TestCase):
         self.assertEqual(self.req("Minimum of 2 years' experience in a software engineering role"), 2)
 
     def test_degree_alternatives_take_the_easier_path(self):
-        self.assertEqual(self.req("Bachelor's degree and 5 years of experience, or a Master's and 3 years of experience"), 3)
+        self.assertEqual(
+            self.req("Bachelor's degree and 5 years of experience, or a Master's and 3 years of experience"), 3
+        )
 
     def test_highest_general_requirement_wins(self):
         txt = "Requirements\n- 6+ years of software engineering experience\n- 2+ years with Rust"
         self.assertEqual(self.req(txt), 6)
 
     def test_not_experience(self):
-        for t in ["4-year degree in Computer Science", "Founded 7 years ago", "Our runway is 4 years",
-                  "After 5 years of service you get a sabbatical", "We have 10+ years of experience in payments.",
-                  "In the past 3 years we have grown 10x.", "Equity vests over 4 years with a 1 year cliff."]:
+        for t in [
+            "4-year degree in Computer Science",
+            "Founded 7 years ago",
+            "Our runway is 4 years",
+            "After 5 years of service you get a sabbatical",
+            "We have 10+ years of experience in payments.",
+            "In the past 3 years we have grown 10x.",
+            "Equity vests over 4 years with a 1 year cliff.",
+        ]:
             self.assertIsNone(self.req(t), t)
 
     def test_401k_is_not_years(self):
@@ -48,9 +57,11 @@ class Years(unittest.TestCase):
         self.assertEqual((r, p), (None, 5))
 
     def test_stripe_style_plain_title(self):
-        desc = ("Who you are\nWe're looking for someone who meets the minimum requirements to be considered for the role.\n"
-                "Minimum requirements\n8+ years of professional experience writing high quality production level code\n"
-                "Preferred qualifications\nExperience with Ruby and Java")
+        desc = (
+            "Who you are\nWe're looking for someone who meets the minimum requirements to be considered for the role.\n"
+            "Minimum requirements\n8+ years of professional experience writing high quality production level code\n"
+            "Preferred qualifications\nExperience with Ruby and Java"
+        )
         lv = parse_level("Software Engineer, Internal Systems", desc)
         self.assertEqual(lv.min_years, 8)
         self.assertTrue(lv.plain_title)

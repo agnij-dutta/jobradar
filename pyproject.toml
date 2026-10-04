@@ -16,3 +16,23 @@ jobradar = "jobradar.cli:main"
 
 [tool.setuptools]
 packages = ["jobradar"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["data", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "RUF"]
+ignore = [
+  "RUF001",  # ambiguous unicode: the gazetteer and dash normalizer intentionally contain en dashes and accented names
+  "RUF002",
+  "RUF003",
+  "E501",    # long regex alternations read better unbroken; ruff format handles code line length
+]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["jobradar"]
+ignore_missing_imports = true
+check_untyped_defs = true

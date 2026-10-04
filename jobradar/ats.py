@@ -1,4 +1,5 @@
 """ATS adapters: fetch a board and normalize every posting into one schema."""
+
 from __future__ import annotations
 
 import re
@@ -74,7 +75,9 @@ def _iso(v) -> str | None:
     if isinstance(v, (int, float)):
         return datetime.fromtimestamp(v / 1000, tz=timezone.utc).isoformat(timespec="seconds")
     try:
-        return datetime.fromisoformat(str(v).replace("Z", "+00:00")).astimezone(timezone.utc).isoformat(timespec="seconds")
+        return (
+            datetime.fromisoformat(str(v).replace("Z", "+00:00")).astimezone(timezone.utc).isoformat(timespec="seconds")
+        )
     except ValueError:
         return str(v)
 
@@ -90,7 +93,7 @@ def normalize(ats: str, slug: str, company: str, j: dict) -> dict:
         locs_for_geo = locs + [o for o in offices if o not in locs]
         team = ", ".join(d.get("name") for d in (j.get("departments") or []) if d.get("name")) or None
         workplace = None
-        structured = []
+        structured: list[str] = []
         comp = parse_comp.from_text(desc)
         posted = _iso(j.get("first_published"))
         updated = _iso(j.get("updated_at"))
@@ -109,7 +112,9 @@ def normalize(ats: str, slug: str, company: str, j: dict) -> dict:
         team = j.get("team") or j.get("department")
         workplace = j.get("workplaceType") or ("Remote" if j.get("isRemote") else None)
         structured = []
-        for a in [j.get("address")] + [sl.get("address") for sl in (j.get("secondaryLocations") or []) if isinstance(sl, dict)]:
+        for a in [j.get("address")] + [
+            sl.get("address") for sl in (j.get("secondaryLocations") or []) if isinstance(sl, dict)
+        ]:
             c = ((a or {}).get("postalAddress") or {}).get("addressCountry")
             if c:
                 structured.append(c)

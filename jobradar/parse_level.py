@@ -10,6 +10,7 @@ Two independent signals:
 
 Ladder: intern(0) entry(1) junior(2) mid(3) senior(4) staff(5) principal(6) management(7)
 """
+
 from __future__ import annotations
 
 import re
@@ -20,8 +21,23 @@ from .textutil import lines, normalize_dashes, sentences
 LEVELS = ["intern", "entry", "junior", "mid", "senior", "staff", "principal", "management"]
 RANK = {name: i for i, name in enumerate(LEVELS)}
 
-_WORDNUM = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
-            "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "fifteen": 15, "twenty": 20}
+_WORDNUM = {
+    "zero": 0,
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "fifteen": 15,
+    "twenty": 20,
+}
 _NUM = r"(\d{1,2}(?:\.\d)?|" + "|".join(_WORDNUM) + r")"
 _YRS = r"(?:years?|yrs?|yoe)\b"
 
@@ -29,7 +45,10 @@ _PATTERNS = [
     # 3-5 years, 3 to 5 years, 2-10+ yrs, (3 - 5) years
     re.compile(rf"\b{_NUM}\s*\+?\s*(?:-|to)\s*{_NUM}\s*\+?\s*(?:\)\s*)?{_YRS}", re.I),
     # at least 3 years, minimum of 4 years, over 5 years, more than 2 years
-    re.compile(rf"\b(?:at least|a minimum of|minimum of|minimum|min\.?|over|more than|upwards of|no less than)\s+(?:\()?{_NUM}\s*\+?\s*(?:\)\s*)?{_YRS}", re.I),
+    re.compile(
+        rf"\b(?:at least|a minimum of|minimum of|minimum|min\.?|over|more than|upwards of|no less than)\s+(?:\()?{_NUM}\s*\+?\s*(?:\)\s*)?{_YRS}",
+        re.I,
+    ),
     # 5+ years, 5 + yrs, 5 years, five (5) years, 3 or more years
     re.compile(rf"\b{_NUM}\s*(?:\(\s*\d{{1,2}}\s*\)\s*)?(?:\+|\s+or\s+more|\s+plus)?\s*{_YRS}", re.I),
     # Experience: 3+ / Years of experience: 5
@@ -51,21 +70,29 @@ _BAD_AFTER = re.compile(
     r"of growth|in a row|program|programme|fellowship|plan|roadmap|horizon)\b",
     re.I,
 )
-_SELF_BEFORE = re.compile(r"\b(we have|we've|we bring|our team has|the team has|founders? (have|has|bring)|combined|collective)\b[^.]{0,30}$", re.I)
+_SELF_BEFORE = re.compile(
+    r"\b(we have|we've|we bring|our team has|the team has|founders? (have|has|bring)|combined|collective)\b[^.]{0,30}$",
+    re.I,
+)
 _BAD_BEFORE = re.compile(
     r"\b(within|in the (last|past|next)|"
     r"for the (last|past|next)|over the (last|past|next)|founded|since|after|every|each|per|"
     r"for (?:the )?first|up to|aged?|age of|turned|celebrat\w+|for)\s*(?:the\s+)?(?:over\s+)?$",
     re.I,
 )
-_BENEFITS = re.compile(r"\b(vest\w*|cliff|sabbatical|parental leave|pto|paid time off|equity|stock options?|runway)\b", re.I)
+_BENEFITS = re.compile(
+    r"\b(vest\w*|cliff|sabbatical|parental leave|pto|paid time off|equity|stock options?|runway)\b", re.I
+)
 _PREFERRED_LINE = re.compile(
     r"\b(nice[- ]to[- ]have|bonus|a plus|is a plus|are a plus|pluses|preferred|ideally|desired|"
     r"would be great|we'd love|we would love|extra credit|brownie points|not required|isn't required|"
     r"is not required|don't need|do not need)\b",
     re.I,
 )
-_PREFERRED_HEADER = re.compile(r"\b(nice[- ]to[- ]haves?|bonus( points)?|preferred( qualifications| skills)?|pluses|extra credit|good to have)\b", re.I)
+_PREFERRED_HEADER = re.compile(
+    r"\b(nice[- ]to[- ]haves?|bonus( points)?|preferred( qualifications| skills)?|pluses|extra credit|good to have)\b",
+    re.I,
+)
 _REQUIRED_HEADER = re.compile(
     r"\b(requirements?|qualifications?|what you('ll)? (bring|need|have)|you (have|bring|are|might be)|"
     r"about you|who you are|must[- ]haves?|we('re| are) looking for|what we('re| are) looking for|"
@@ -83,7 +110,7 @@ def _num(s: str) -> float:
 
 @dataclass
 class YearsMention:
-    value: float          # lower bound
+    value: float  # lower bound
     upper: float | None
     text: str
     preferred: bool
@@ -122,8 +149,11 @@ def find_year_mentions(text: str) -> list[YearsMention]:
                         continue  # the company describing itself
                     if _BAD_BEFORE.search(before) and not _EXPERIENCE_AFTER.search(after):
                         continue
-                    if pi < 3 and not (_EXPERIENCE_AFTER.search(after) or _EXPERIENCE_BEFORE.search(before)
-                                       or re.search(r"yoe", m.group(0), re.I)):
+                    if pi < 3 and not (
+                        _EXPERIENCE_AFTER.search(after)
+                        or _EXPERIENCE_BEFORE.search(before)
+                        or re.search(r"yoe", m.group(0), re.I)
+                    ):
                         continue
                     if pi == 0:
                         lo, hi = _num(m.group(1)), _num(m.group(2))
@@ -139,9 +169,9 @@ def find_year_mentions(text: str) -> list[YearsMention]:
             for i, (s, e, lo, hi) in enumerate(found):
                 alt = False
                 if i > 0:
-                    between = sent[found[i - 1][1]:s]
+                    between = sent[found[i - 1][1] : s]
                     alt = bool(re.search(r"\bor\b", between, re.I))
-                out.append(YearsMention(lo, hi, sent[max(0, s - 40):e + 60].strip(), pref, ln_no, alt))
+                out.append(YearsMention(lo, hi, sent[max(0, s - 40) : e + 60].strip(), pref, ln_no, alt))
     return out
 
 
@@ -176,7 +206,13 @@ _TITLE_WORDS = [
     ("staff", re.compile(r"\b(staff|tech lead|technical lead|lead engineer|engineering lead|architect)\b", re.I)),
     ("senior", re.compile(r"\b(senior|sr\.?|snr|founding|lead)\b", re.I)),
     ("intern", re.compile(r"\b(intern|internship|co-?op)\b", re.I)),
-    ("entry", re.compile(r"\b(new ?grad(uate)?|graduate|entry[- ]level|early[- ]career|university|campus|apprentice|residency)\b", re.I)),
+    (
+        "entry",
+        re.compile(
+            r"\b(new ?grad(uate)?|graduate|entry[- ]level|early[- ]career|university|campus|apprentice|residency)\b",
+            re.I,
+        ),
+    ),
     ("junior", re.compile(r"\b(junior|jr\.?|associate)\b", re.I)),
     ("mid", re.compile(r"\b(mid[- ]level|intermediate)\b", re.I)),
 ]
@@ -249,7 +285,7 @@ class LevelResult:
     preferred_years: float | None
     years_evidence: str | None
     level: str | None
-    level_source: str | None   # years | code | title | None
+    level_source: str | None  # years | code | title | None
     title_level: str | None
     level_code: str | None
     plain_title: bool
