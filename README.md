@@ -2,13 +2,13 @@
 
 Search company job boards straight from the Greenhouse, Ashby and Lever APIs, with filters that read the posting text: where you are actually allowed to work from, how many years the requirements ask for, and what the role pays. A CLI and a static web page for engineers who are tired of "Remote" meaning "Remote, US only".
 
-![Job Radar web UI: 23 of 17,467 postings match TypeScript and Solidity, open to India, remote, at most 3 years. The exclusion panel shows 4,497 postings removed as "'Remote' but restricted to other countries".](docs/screenshot.png)
+![Job Radar web UI: 27 of 17,467 postings match TypeScript and Solidity, open to India, remote, at most 3 years. The exclusion panel shows 4,490 postings removed as "'Remote' but restricted to other countries".](docs/screenshot.png)
 
 The same search from the CLI (real output, sweep of 2026-10-04, trimmed with `--limit 2`):
 
 ```
 $ python3 -m jobradar search --stack "typescript,solidity" --region IN --max-years 3 --remote --limit 2 --why-not 3
-Searched ALL 17467 current postings from 310 boards (snapshot 2026-10-04T11:55:21+00:00). 23 match.
+Searched ALL 17467 current postings from 310 boards (snapshot 2026-10-04T11:55:21+00:00). 27 match.
 
   1. [ 66.0] Binance | Smart Contract Security Engineer (Security Audit)
        remote | AE, APAC, TW | yrs ? | level ? | visa unknown
@@ -25,18 +25,18 @@ Searched ALL 17467 current postings from 310 boards (snapshot 2026-10-04T11:55:2
        ! no mention of solidity
        ! years not stated
 
-... 21 more (use --limit)
+... 25 more (use --limit)
 
-23 of 23 matches were first posted more than 30 days before this snapshot.
+27 of 27 matches were first posted more than 30 days before this snapshot.
 
 Excluded (a posting can have several reasons):
    16194  stack: no requested term in the description
-   12489  work mode: not remote
+   12484  work mode: not remote
    11681  not an engineering role
    11579  geo: onsite/hybrid in another country
-    9031  years: asks for more than your max
-    4497  geo: 'Remote' but restricted to other countries
-     156  geo: never says where it hires
+    8954  years: asks for more than your max
+    4490  geo: 'Remote' but restricted to other countries
+     155  geo: never says where it hires
 
 Best stack matches you are NOT seeing, and why:
   [ 69.0] Ondo Finance | Senior Full-Stack Engineer (Web3) | https://job-boards.greenhouse.io/ondofinance/jobs/4297411009
@@ -53,13 +53,13 @@ Best stack matches you are NOT seeing, and why:
 
 Job Radar came out of three mistakes in a real job search.
 
-- **A diff is not a search.** A daily script printed only postings that were new since its last run. When all 184 boards were finally pulled and filtered from scratch, the best stack match of the whole search had been live for weeks. It never surfaced because it was never new on a day the script ran. Job Radar always searches the full current set. In the run above, all 23 matches had been posted more than 30 days earlier.
+- **A diff is not a search.** A daily script printed only postings that were new since its last run. When all 184 boards were finally pulled and filtered from scratch, the best stack match of the whole search had been live for weeks. It never surfaced because it was never new on a day the script ran. Job Radar always searches the full current set. In the run above, all 27 matches had been posted more than 30 days earlier.
 - **"Remote" is a work mode, not a geography.** A "Remote" role at a card company was open only to the US, Canada (Ontario or BC only), the Netherlands, Poland and Czechia, with no visa sponsorship. Across the 996 engineering postings with "Remote" in the location field, 950 are limited to named countries or regions and 20 are open worldwide.
-- **A job title is not a level.** A plainly titled "Software Engineer, Internal Systems" asked for 8+ years, while "Backend Engineer E2" was the real fit. Of the 1,001 plain-titled engineering roles that state years, 512 (51%) ask for 5 or more.
+- **A job title is not a level.** A plainly titled "Software Engineer, Internal Systems" asked for 8+ years, while "Backend Engineer E2" was the real fit. Of the 995 plain-titled engineering roles that state years, 506 (51%) ask for 5 or more.
 
 ### How these numbers were measured
 
-One full sweep of the 310 boards in `seeds/boards.json`, started 2026-10-04 11:39 UTC and finished 11:55 UTC, run from an Apple M4 laptop on macOS 27 with Python 3.14 over a home connection. Result: 264 boards with openings, 46 empty, 0 errors, 17,467 postings, 5,786 of them engineering. The figures come from `jobradar stats` and the search above. They are a snapshot of those boards on that day, and the parsers are heuristic (see [Limitations](#limitations)), so treat them as measured approximations. Two sweeps run back to back the same morning found 0 new and 0 closed postings, which is the idempotency check.
+One full sweep of the 310 boards in `seeds/boards.json`, started 2026-10-04 11:39 UTC and finished 11:55 UTC, run from an Apple M4 laptop on macOS 27 with Python 3.14 over a home connection. Result: 264 boards with openings, 46 empty, 0 errors, 17,467 postings, 5,786 of them engineering. The figures come from `jobradar stats` and the search above, with the payloads re-read by the current parsers (`jobradar reparse`, 2026-10-05). They are a snapshot of those boards on that day, and the parsers are heuristic (see [Limitations](#limitations)), so treat them as measured approximations. Two sweeps run back to back the same morning found 0 new and 0 closed postings, which is the idempotency check.
 
 ## Quickstart
 
