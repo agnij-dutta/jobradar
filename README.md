@@ -22,7 +22,7 @@ Job Radar reads minimum years from the requirements text ("5+ years", "3-5 yrs",
 
 ## First full sweep (2026-10-04)
 
-- 310 boards across 283 company slugs (89 crypto, 78 fintech, 73 devtools, 68 AI), 264 with openings, 46 empty, 0 errors. 336 candidate slugs were dead on all three ATSs; 29 resolved to an unrelated company with the same name.
+- 310 boards across 283 company slugs (89 crypto, 78 fintech, 73 devtools, 68 AI), 264 with openings, 46 empty, 0 errors. 336 candidate slugs were dead on all three ATSs; 28 resolved to an unrelated company with the same name.
 - 17,468 postings, 5,785 engineering. Two back-to-back sweeps: 0 new, 0 closed (idempotent).
 - Engineering postings whose location field says "Remote": 996. Of those, 950 (95%) are restricted to named countries or regions. 20 are open worldwide.
 - Engineering roles with a plain title (no senior, staff, junior or level code) that state years: 1,001. 513 of them (51%) require 5+ years. Plain "Software Engineer, ..." titles: 174 of 347 require 5+.
