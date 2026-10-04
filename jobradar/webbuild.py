@@ -31,15 +31,21 @@ def _short(s: str | None, n: int) -> str | None:
     return s if len(s) <= n else s[: n - 3].rstrip() + "..."
 
 
-def slim(p: dict) -> dict:
+def slim(p: dict, companies: dict, seen_times: dict) -> dict:
     c = p.get("comp") or {}
+    ckey = (p.get("company") or "", p.get("category") or "")
+    if ckey not in companies:
+        companies[ckey] = len(companies)
+    fs = (p.get("first_seen") or "")[:19]
+    if fs not in seen_times:
+        seen_times[fs] = len(seen_times)
     out = {
-        "c": p.get("company"), "t": p.get("title"), "u": p.get("url"), "tm": p.get("team"),
+        "c": companies[ckey], "t": p.get("title"), "u": p.get("url"), "tm": p.get("team"),
         "l": _short(p.get("location_raw"), 120), "m": _MODE.get(p.get("remote_mode"), "u"),
         "r": p.get("regions") or [], "s": _SCOPE.get(p.get("geo_scope"), "u"),
         "v": _VISA.get(p.get("sponsorship"), "u"), "e": 1 if p.get("is_engineering") else 0,
-        "f": (p.get("first_seen") or "")[:19], "d": (p.get("posted_at") or p.get("updated_at") or "")[:10],
-        "k": p.get("tags") or {}, "cat": p.get("category"),
+        "f": seen_times[fs], "d": (p.get("posted_at") or p.get("updated_at") or "")[:10],
+        "k": p.get("tags") or {},
     }
     if p.get("excluded_regions"):
         out["x"] = p["excluded_regions"]
@@ -49,7 +55,7 @@ def slim(p: dict) -> dict:
         out["py"] = p["preferred_years"]
     if p.get("level"):
         out["lv"] = LEVELS.index(p["level"])
-        out["ls"] = p.get("level_source")
+        out["ls"] = (p.get("level_source") or "?")[0]  # y(ears) c(ode) t(itle)
     if p.get("title_level"):
         out["tl"] = p["title_level"]
     if p.get("plain_title"):
@@ -58,11 +64,11 @@ def slim(p: dict) -> dict:
         out["cp"] = [c.get("usd_min"), c.get("usd_max"), c.get("currency"), c.get("source")]
     ge = (p.get("geo_evidence") or [None])[0]
     if ge:
-        out["ge"] = _short(ge, 200)
+        out["ge"] = _short(ge, 160)
     if p.get("years_evidence"):
-        out["ye"] = _short(p["years_evidence"], 140)
+        out["ye"] = _short(p["years_evidence"], 100)
     if p.get("sponsorship_evidence"):
-        out["ve"] = _short(p["sponsorship_evidence"], 160)
+        out["ve"] = _short(p["sponsorship_evidence"], 110)
     if p.get("stale"):
         out["st"] = 1
     return out
@@ -88,7 +94,11 @@ def build(snapshot_path: str | None = None, out_dir: str | None = None) -> dict:
         "error": sum(1 for b in snap["boards"] if b["status"] == "error"),
         "errors": [b["board"] for b in snap["boards"] if b["status"] == "error"],
     }
-    postings = [slim(p) for p in snap["postings"]]
+    companies: dict = {}
+    seen_times: dict = {}
+    postings = [slim(p, companies, seen_times) for p in snap["postings"]]
+    meta["companies"] = [list(k) for k in companies]
+    meta["first_seen_values"] = list(seen_times)
     payload = json.dumps({"meta": meta, "postings": postings}, ensure_ascii=False, separators=(",", ":"))
     (data_dir / "jobs.js").write_text("window.JOBRADAR=" + payload + ";\n")
     return {"out": str(out), "postings": len(postings), "bytes": len(payload)}

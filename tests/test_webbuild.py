@@ -26,6 +26,8 @@ class WebBuild(unittest.TestCase):
             row = data["postings"][0]
             self.assertEqual((row["m"], row["r"], row["y"]), ("r", ["IN"], 2))
             self.assertNotIn("description", row)
+            self.assertEqual(data["meta"]["companies"][row["c"]][0], "Acme")
+            self.assertEqual(data["meta"]["first_seen_values"][row["f"]], "2026-09-01T00:00:00")
             for f in ("index.html", "app.js", "style.css"):
                 self.assertTrue((Path(out["out"]) / f).exists())
 

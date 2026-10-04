@@ -20,6 +20,14 @@ Job Radar parses eligible geography as its own field (countries and regions, plu
 A plainly titled "Software Engineer, Internal Systems" asked for 8+ years. A role titled "Backend Engineer E2" was the real fit.
 Job Radar reads minimum years from the requirements text ("5+ years", "3-5 yrs", "at least four years", degree-or-experience alternatives, nice-to-have sections kept separate) and level codes (E2, L4, IC3, Engineer II), and only falls back to title words last.
 
+## First full sweep (2026-10-04)
+
+- 310 boards across 283 company slugs (89 crypto, 78 fintech, 73 devtools, 68 AI), 264 with openings, 46 empty, 0 errors. 336 candidate slugs were dead on all three ATSs; 29 resolved to an unrelated company with the same name.
+- 17,468 postings, 5,785 engineering. Two back-to-back sweeps: 0 new, 0 closed (idempotent).
+- Engineering postings whose location field says "Remote": 996. Of those, 950 (95%) are restricted to named countries or regions. 20 are open worldwide.
+- Engineering roles with a plain title (no senior, staff, junior or level code) that state years: 1,001. 513 of them (51%) require 5+ years. Plain "Software Engineer, ..." titles: 174 of 347 require 5+.
+- `--stack typescript,solidity --region IN --max-years 3 --remote` returns 23 roles. All 23 were first posted more than 30 days before the sweep. A "new since yesterday" diff would have shown none of them.
+
 ## Quick start
 
 Python 3.10+, standard library only.

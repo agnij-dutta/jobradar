@@ -54,6 +54,9 @@ class Stack(unittest.TestCase):
         self.assertFalse(is_engineering("Solutions Engineer"))
         self.assertFalse(is_engineering("Sales Engineer, EMEA"))
         self.assertFalse(is_engineering("Account Executive"))
+        self.assertFalse(is_engineering("Data Center Mechanical Engineer"))
+        self.assertFalse(is_engineering("Strategy & Operations, Infrastructure"))
+        self.assertTrue(is_engineering("Software Engineer, Infrastructure"))
 
 
 def _ashby_job(jid, title, loc, desc, workplace="Remote", comp=None):

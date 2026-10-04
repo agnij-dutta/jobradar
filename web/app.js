@@ -8,6 +8,12 @@
     return;
   }
   var META = DATA.meta, ALL = DATA.postings;
+  var LS = { y: "years required", c: "level code in title", t: "title words" };
+  ALL.forEach(function (p) {
+    var co = META.companies[p.c]; p.c = co[0]; p.cat = co[1];
+    p.f = META.first_seen_values[p.f];
+    if (p.ls) p.ls = LS[p.ls] || p.ls;
+  });
   var LEVELS = META.levels;
   var MEMBERS = META.region_members;
   var VOCAB = {}; META.vocab.forEach(function (v) { VOCAB[v] = 1; });
@@ -21,6 +27,7 @@
     PK: "Pakistan", RO: "Romania", UA: "Ukraine", TR: "Turkey", EE: "Estonia", LT: "Lithuania", GR: "Greece"
   };
   var PAGE = 60;
+  var PREV = (META.previous_run_started_at || "").slice(0, 19);
 
   var st = {
     stack: [], region: "", unverified: false, mode: "", years: 11, strictYears: false,
@@ -94,8 +101,7 @@
       else if (p.cp[1] < st.comp * 1000) rej.push("comp: below your minimum");
     } else if (st.requireComp && !p.cp) rej.push("comp: none published");
     if (st.visa && p.v === "n") rej.push("visa: no sponsorship");
-    if (st.newOnly && META.previous_run_started_at && p.f <= META.previous_run_started_at) rej.push("not new since last sweep");
-    if (st.newOnly && !META.previous_run_started_at) rej.push("not new since last sweep");
+    if (st.newOnly && (!PREV || p.f <= PREV)) rej.push("not new since last sweep");
     if (p.st) cav.push("board failed to fetch on the last sweep; may be closed");
     return { ok: !rej.length, s: sc.s, why: why, cav: cav, rej: rej };
   }

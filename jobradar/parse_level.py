@@ -46,7 +46,7 @@ _EXPERIENCE_AFTER = re.compile(
 )
 _EXPERIENCE_BEFORE = re.compile(r"(experience|yoe|seniority)[^.\n]{0,25}$", re.I)
 _BAD_AFTER = re.compile(
-    r"^\s*(?:-\s*)?(?:\+\s*)?(?:old|ago|degree|vesting|vest|of service|of tenure|sabbatical|warranty|runway|"
+    r"^\s*(?:-\s*)?(?:\+\s*)?(?:olds?|ago|degree|vesting|vest|of service|of tenure|sabbatical|warranty|runway|"
     r"in business|of operation|of age|anniversary|cliff|contract|term|of runway|history|of data|"
     r"of growth|in a row|program|programme|fellowship|plan|roadmap|horizon)\b",
     re.I,

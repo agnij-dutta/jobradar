@@ -30,16 +30,17 @@ BOARD_URLS = {
 
 _ENG = re.compile(
     r"\b(engineer\w*|developer|swe|sde|software|programmer|backend|back-end|frontend|front-end|full[- ]?stack|"
-    r"devops|sre|site reliability|protocol|smart contracts?|blockchain|solidity|rust|infrastructure|"
+    r"devops|sre|site reliability|protocol|smart contracts?|blockchain|solidity|rust|"
     r"machine learning|ml|researcher|research scientist|data scientist|cryptographer|architect|"
     r"founding|technical staff|tech lead)\b",
     re.I,
 )
 _NOT_ENG = re.compile(
-    r"\b(sales|solutions|support|customer|success|account|recruit\w*|talent|marketing|counsel|legal|"
+    r"\b(sales|solutions|support|customer|success|account|recruit\w*|talent|people|marketing|counsel|legal|"
     r"compliance|designer|product manager|program manager|project manager|finance|accountant|"
     r"partnerships?|business development|bd|operations manager|community|content|writer|"
-    r"implementation|onboarding|field|pre-?sales|go[- ]to[- ]market|gtm)\b",
+    r"implementation|onboarding|field|pre-?sales|go[- ]to[- ]market|gtm|strategy|operations|mechanical|electrical|civil|"
+    r"facilities|data cent(er|re)|construction|hvac|commissioning|manufacturing|hardware technician|legal)\b",
     re.I,
 )
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from collections import Counter
 
-from .parse_geo import eligible
+from .parse_geo import eligible, find_places
 
 
 def compute(snap: dict, home: str = "IN") -> dict:
@@ -17,14 +17,17 @@ def compute(snap: dict, home: str = "IN") -> dict:
         scope = Counter(p.get("geo_scope") for p in rem)
         restricted = [p for p in rem if p.get("geo_scope") == "restricted"]
         sets = Counter(",".join(p.get("regions") or []) for p in restricted)
-        bare = [p for p in rem if p.get("geo_source") in ("description",) and p.get("geo_scope") == "restricted"]
+        bare_rows = [p for p in rem
+                     if not [x for x in find_places(p.get("location_raw") or "") if x.code != "GLOBAL"]]
+        bare = Counter(p.get("geo_source") for p in bare_rows)
         open_home = sum(1 for p in rem if eligible(p.get("regions") or [], p.get("excluded_regions") or [], home, p.get("geo_scope")) == "yes")
         return {
             "remote_postings": len(rem),
             "restricted": scope.get("restricted", 0),
             "global": scope.get("global", 0),
             "unspecified": scope.get("unspecified", 0),
-            "restricted_only_by_description": len(bare),
+            "restricted_only_by_description": sum(1 for p in rem if p.get("geo_source") == "description" and p.get("geo_scope") == "restricted"),
+            "bare_remote_location": {"total": len(bare_rows), "by_source": dict(bare)},
             f"open_to_{home}": open_home,
             "top_restriction_sets": sets.most_common(8),
         }
@@ -88,6 +91,8 @@ def render(st: dict, home: str = "IN") -> str:
         f"  engineering: {re_['remote_postings']} say Remote -> {re_['restricted']} restricted, {re_['global']} global, "
         f"{re_['unspecified']} never say; {re_['restricted_only_by_description']} restricted only in the description text; "
         f"{re_[f'open_to_{home}']} confirmed open to {home}",
+        f"  engineering postings whose location field names no place: {re_['bare_remote_location']['total']} "
+        f"(where they actually hire came from: {re_['bare_remote_location']['by_source']})",
         "  most common restriction sets (engineering): " + "; ".join(f"{k or '?'} x{v}" for k, v in re_["top_restriction_sets"]),
         "",
         "A job title is not a level:",

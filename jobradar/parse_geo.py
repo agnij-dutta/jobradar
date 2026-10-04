@@ -376,8 +376,11 @@ def parse_geo(location_texts: list[str], description: str = "", workplace_type: 
             if "GLOBAL" in loc_regions:
                 evidence.append("location says global but the description restricts it")
         elif d_specific and loc_specific:
-            regions = loc_specific | d_specific
-            source = "location+description"
+            # The location field is the posting's own claim; description geography
+            # here is usually company boilerplate ("our team spans the US, UK...").
+            regions = set(loc_specific)
+            if d_specific - loc_specific:
+                evidence.append("description also names " + ", ".join(sorted(d_specific - loc_specific)) + " (not applied)")
         elif loc_regions:
             regions = set(loc_regions)
         elif d_regions:

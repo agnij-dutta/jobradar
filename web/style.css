@@ -108,4 +108,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   .mobile-only { display: inline; }
   .excluded ul { columns: 1; }
   .top { padding-top: 18px; }
+  .bar { flex-wrap: wrap; }
+  .bar-right { width: 100%; justify-content: space-between; }
+  .sort select { max-width: 180px; }
+  .b { white-space: normal; }
 }
+html, body { overflow-x: hidden; }
