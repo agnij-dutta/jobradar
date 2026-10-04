@@ -95,6 +95,16 @@ def _fmt_hit(i: int, h: S.Hit) -> str:
     return "\n".join([head, *body])
 
 
+def _posted_before(hits: list[S.Hit], snapshot_at: str | None, days: int) -> int:
+    """Count matches whose posted date is more than `days` before the snapshot."""
+    if not snapshot_at:
+        return 0
+    from datetime import datetime, timedelta
+
+    cutoff = (datetime.fromisoformat(snapshot_at) - timedelta(days=days)).isoformat()
+    return sum(1 for h in hits if (h.posting.get("posted_at") or "9999") < cutoff)
+
+
 def cmd_search(a) -> int:
     snap = _load(a.snapshot)
     new_since = a.new_since
@@ -147,6 +157,10 @@ def cmd_search(a) -> int:
         print()
     if len(hits) > a.limit:
         print(f"... {len(hits) - a.limit} more (use --limit)\n")
+    old = _posted_before(hits, m.get("finished_at"), days=30)
+    if hits and new_since is None:
+        # The point of searching the full set: most good matches are not new.
+        print(f"{old} of {len(hits)} matches were first posted more than 30 days before this snapshot.\n")
     print("Excluded (a posting can have several reasons):")
     for label, n in S.summarize_exclusions(misses):
         print(f"  {n:>6}  {label}")

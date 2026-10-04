@@ -19,6 +19,8 @@ def compute(snap: dict, home: str = "IN") -> dict:
         restricted = [p for p in rem if p.get("geo_scope") == "restricted"]
         sets = Counter(",".join(p.get("regions") or []) for p in restricted)
         bare_rows = [p for p in rem if not [x for x in find_places(p.get("location_raw") or "") if x.code != "GLOBAL"]]
+        literal = [p for p in rows if "remote" in (p.get("location_raw") or "").lower()]
+        literal_scope = Counter(p.get("geo_scope") for p in literal)
         bare = Counter(p.get("geo_source") for p in bare_rows)
         open_home = sum(
             1
@@ -36,6 +38,10 @@ def compute(snap: dict, home: str = "IN") -> dict:
             "restricted_only_by_description": sum(
                 1 for p in rem if p.get("geo_source") == "description" and p.get("geo_scope") == "restricted"
             ),
+            "location_says_remote": {
+                "total": len(literal),
+                **{k: literal_scope.get(k, 0) for k in ("restricted", "global", "unspecified")},
+            },
             "bare_remote_location": {"total": len(bare_rows), "by_source": dict(bare)},
             f"open_to_{home}": open_home,
             "top_restriction_sets": sets.most_common(8),
@@ -116,6 +122,9 @@ def render(st: dict, home: str = "IN") -> str:
         f"  engineering: {re_['remote_postings']} say Remote -> {re_['restricted']} restricted, {re_['global']} global, "
         f"{re_['unspecified']} never say; {re_['restricted_only_by_description']} restricted only in the description text; "
         f"{re_[f'open_to_{home}']} confirmed open to {home}",
+        f"  engineering postings with 'Remote' in the location field: {re_['location_says_remote']['total']} -> "
+        f"{re_['location_says_remote']['restricted']} restricted, {re_['location_says_remote']['global']} worldwide, "
+        f"{re_['location_says_remote']['unspecified']} never say",
         f"  engineering postings whose location field names no place: {re_['bare_remote_location']['total']} "
         f"(where they actually hire came from: {re_['bare_remote_location']['by_source']})",
         "  most common restriction sets (engineering): "
