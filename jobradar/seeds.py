@@ -129,3 +129,24 @@ def probe(candidates: list[dict], workers: int = 12, log=print) -> dict:
         "review": review,
         "probed_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
+
+
+def merge_probe(
+    old_boards: list[dict], old_dead: list[dict], probed: set[str], result: dict
+) -> tuple[list[dict], list[dict]]:
+    """Merge one probe result into the existing seed lists. Returns (boards, dead).
+
+    Only slugs that were probed can change. A board whose probe errored is kept as
+    it was, because a failed request is not evidence that the board is gone.
+    Hand-curated fields (company, category, note) survive a re-probe.
+    """
+    errored = {(e["ats"], e["slug"]) for e in result["errors"]}
+    old = {(b["ats"], b["slug"]): b for b in old_boards}
+    live = []
+    for b in result["live"]:
+        prev = old.get((b["ats"], b["slug"]), {})
+        live.append({**b, **{k: v for k, v in prev.items() if k in ("company", "category", "note")}})
+    keep = [b for key, b in old.items() if b["slug"] not in probed or key in errored]
+    boards = sorted(keep + live, key=lambda b: (b["slug"], b["ats"]))
+    dead = [d for d in old_dead if d["slug"] not in probed] + result["dead"]
+    return boards, sorted(dead, key=lambda d: d["slug"])

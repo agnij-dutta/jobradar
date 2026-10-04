@@ -82,6 +82,11 @@ def fetch_one(b: dict) -> tuple[dict, list[dict]]:
         return res, []
     save_raw(b["ats"], b["slug"], r.data)
     out = normalize_jobs(b, res["company"], jobs, res)
+    if jobs and not out and res["parse_errors"]:
+        # Every job failed to parse: that is a bug or a format change, not an
+        # empty board, and treating it as "ok" would close all its postings.
+        res.update(status="error", error=f"all {len(jobs)} jobs failed to parse")
+        return res, []
     if out:
         res["company"] = out[0]["company"] or res["company"]
     res.update(status="ok" if jobs else "empty", count=len(out))
@@ -101,9 +106,22 @@ def run(workers: int = 12, log=print, only: list[str] | None = None) -> dict:
     results: list[dict] = []
     postings_by_board: dict[str, list[dict]] = {}
     with cf.ThreadPoolExecutor(workers) as ex:
-        futs = [ex.submit(fetch_one, b) for b in bl]
+        futs = {ex.submit(fetch_one, b): b for b in bl}
         for i, f in enumerate(cf.as_completed(futs), 1):
-            res, posts = f.result()
+            try:
+                res, posts = f.result()
+            except Exception as e:  # one board's bug must not abort the whole sweep
+                b = futs[f]
+                res = {
+                    "board": f"{b['ats']}:{b['slug']}",
+                    "ats": b["ats"],
+                    "slug": b["slug"],
+                    "company": b.get("company") or b["slug"],
+                    "category": b.get("category"),
+                    "status": "error",
+                    "error": f"{type(e).__name__}: {e}",
+                }
+                posts = []
             results.append(res)
             postings_by_board[res["board"]] = posts
             if res["status"] == "error":
