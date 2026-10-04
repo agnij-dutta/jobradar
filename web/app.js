@@ -93,6 +93,8 @@
       (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
     );
   }
+  // Posting URLs come from third-party APIs; only allow http(s) links.
+  const safeUrl = (u) => (/^https?:\/\//i.test(u || "") ? u : "#");
   function regionHas(r, c) {
     return r === "GLOBAL" || r === c || (MEMBERS[r] || []).indexOf(c) >= 0;
   }
@@ -228,7 +230,7 @@
       "</span>" +
       (st.stack.length ? `<span class="score">${r.s}</span>` : "") +
       '</div><a class="title" href="' +
-      esc(p.u) +
+      esc(safeUrl(p.u)) +
       '" target="_blank" rel="noopener">' +
       esc(p.t) +
       "</a>" +

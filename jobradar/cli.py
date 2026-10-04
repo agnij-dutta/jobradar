@@ -34,20 +34,27 @@ def cmd_probe(a) -> int:
     if a.dry_run:
         print(json.dumps({k: (len(v) if isinstance(v, list) else v) for k, v in r.items()}, indent=1))
         return 0
-    # merge with any hand-curated metadata already in boards.json
+    probed = {c["slug"] for c in cands}
+    errored = {(e["ats"], e["slug"]) for e in r["errors"]}
     old = {(b["ats"], b["slug"]): b for b in seeds.boards()}
     live = []
     for b in r["live"]:
         prev = old.get((b["ats"], b["slug"]), {})
+        # keep hand-curated metadata across re-probes
         live.append({**b, **{k: v for k, v in prev.items() if k in ("company", "category", "note")}})
-    (seeds.SEEDS / "boards.json").write_text(json.dumps(live, indent=1, ensure_ascii=False) + "\n")
-    (seeds.SEEDS / "dead.json").write_text(json.dumps(r["dead"], indent=1) + "\n")
+    # Slugs not probed this time stay as they were, and so do boards whose probe
+    # errored: a failed request is not evidence the board is gone.
+    keep = [b for key, b in old.items() if b["slug"] not in probed or key in errored]
+    boards = sorted(keep + live, key=lambda b: (b["slug"], b["ats"]))
+    dead = [d for d in seeds.load_json("dead.json", []) if d["slug"] not in probed] + r["dead"]
+    (seeds.SEEDS / "boards.json").write_text(json.dumps(boards, indent=1, ensure_ascii=False) + "\n")
+    (seeds.SEEDS / "dead.json").write_text(json.dumps(sorted(dead, key=lambda d: d["slug"]), indent=1) + "\n")
     (seeds.SEEDS / "probe-review.json").write_text(
         json.dumps({"probed_at": r["probed_at"], "unconfirmed_identity": r["review"], "errors": r["errors"]}, indent=1)
         + "\n"
     )
     print(
-        f"live boards: {len(live)} | dead slugs: {len(r['dead'])} | probe errors: {len(r['errors'])} | "
+        f"boards: {len(boards)} ({len(live)} answered this probe) | dead slugs: {len(dead)} | probe errors: {len(r['errors'])} | "
         f"identity unconfirmed: {len(r['review'])}"
     )
     return 0
