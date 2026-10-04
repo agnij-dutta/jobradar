@@ -5,3 +5,12 @@ build/
 dist/
 data/
 .DS_Store
+node_modules/
+.env
+.env.*
+!.env.example
+.venv/
+.ruff_cache/
+.mypy_cache/
+*.pem
+*.key

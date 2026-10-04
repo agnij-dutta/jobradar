@@ -1,0 +1,22 @@
+{
+  "name": "jobradar-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Lint and format tooling for the Job Radar static web UI. The Python package is defined in pyproject.toml.",
+  "license": "MIT",
+  "author": "Agnij Dutta",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agnij-dutta/jobradar.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint": "biome check web",
+    "format": "biome format --write web"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15"
+  }
+}
