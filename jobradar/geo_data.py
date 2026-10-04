@@ -152,7 +152,16 @@ REGIONS = {
     "AMER": ["americas", "amer"],
     "MENA": ["mena", "middle east"],
 }
-REGION_CODES_CASED = {"EU": "EU", "EMEA": "EMEA", "APAC": "APAC", "LATAM": "LATAM", "AMER": "AMER", "NAMER": "NA"}
+REGION_CODES_CASED = {
+    "EU": "EU",
+    "EMEA": "EMEA",
+    "APAC": "APAC",
+    "APJ": "APAC",  # Asia Pacific and Japan
+    "LATAM": "LATAM",
+    "AMER": "AMER",
+    "NAMER": "NA",
+    "NA": "NA",  # upper-case only, so "n/a" and prose are unaffected
+}
 
 EU27 = [
     "AT",

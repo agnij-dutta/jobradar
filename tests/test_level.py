@@ -103,5 +103,49 @@ class Levels(unittest.TestCase):
         self.assertFalse(parse_level("Senior Software Engineer", "").plain_title)
 
 
+class ReviewCases(unittest.TestCase):
+    """Strings from the second-reviewer pass."""
+
+    def req(self, text):
+        return min_years(text)[0]
+
+    def test_common_forms(self):
+        self.assertEqual(self.req("3-5 years of experience"), 3)
+        self.assertEqual(self.req("5+ yrs of backend experience"), 5)
+        self.assertEqual(self.req("at least eight years of experience"), 8)
+        self.assertEqual(self.req("eight-plus years of experience"), 8)
+
+    def test_total_beats_a_narrower_requirement(self):
+        self.assertEqual(self.req("2 years of Rust (10+ total)"), 10)
+        self.assertEqual(self.req("At least 2 years of Rust and 6+ years overall"), 6)
+
+    def test_one_line_requirement_is_not_a_section_header(self):
+        # "must have" / "you have" made these short lines look like headers.
+        self.assertEqual(self.req("Must have three+ years of experience"), 3)
+        self.assertEqual(self.req("Requirements\nYou must have five years of experience"), 5)
+
+    def test_company_history_is_not_a_requirement(self):
+        self.assertIsNone(self.req("Our product has grown a lot in the last 10 years in the UK."))
+
+    def test_internships(self):
+        r = parse_level("Software Engineer Intern, Summer 2027", "Currently pursuing a BS in Computer Science.")
+        self.assertEqual((r.level, r.min_years), ("intern", None))
+        r = parse_level("Software Engineering Intern", "0-1 years of experience")
+        self.assertEqual((r.level, r.min_years), ("intern", 0))
+
+    def test_level_codes(self):
+        self.assertEqual(level_code("Backend Engineer E2"), ("E2", "junior"))
+        self.assertEqual(level_code("Software Engineer, L4"), ("L4", "mid"))
+        self.assertEqual(level_code("Software Engineer - IC3"), ("IC3", "mid"))
+        self.assertEqual(level_code("SDE II")[1], "junior")
+        self.assertEqual(level_code("L2 Protocol Engineer"), (None, None))
+
+    def test_e_ladder_is_monotonic(self):
+        from jobradar.parse_level import RANK
+
+        ranks = [RANK[level_code(f"Software Engineer E{n}")[1]] for n in range(1, 8)]
+        self.assertEqual(ranks, sorted(ranks))
+
+
 if __name__ == "__main__":
     unittest.main()

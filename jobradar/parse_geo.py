@@ -151,7 +151,10 @@ def remote_mode(location_texts: list[str], workplace_type: str | None) -> str:
         return "hybrid"
     if wt == "onsite" or _ONSITE_RE.search(joined):
         return "onsite"
+    joined, tz = _strip_timezones(joined)
     places = find_places(joined)
+    if tz and not places:
+        return "remote"  # a location that is only a time zone
     if places and all(p.kind == "region" for p in places):
         # "EMEA", "Latin America", "APAC": nobody has an office called EMEA.
         return "remote"
@@ -161,6 +164,16 @@ def remote_mode(location_texts: list[str], workplace_type: str | None) -> str:
 
 
 # ---------------------------------------------------- location field parse --
+
+# "US time zones", "East Coast Time Zone", "EST Timezone": a working-hours
+# constraint, not a residency rule. Removed before place matching and kept as a note.
+_LOC_TZ = re.compile(r"(?:\b(?:east|west)\s+coast|\b[\w.]+)\s+time\s?zones?\b", re.I)
+
+
+def _strip_timezones(text: str) -> tuple[str, list[str]]:
+    notes = [m.group(0) for m in _LOC_TZ.finditer(text)]
+    return (_LOC_TZ.sub(" ", text), notes) if notes else (text, [])
+
 
 _OPTION_SPLIT = re.compile(r"\s*(?:;|\||\n|\s/\s|/(?=[A-Z])|\bOR\b|\bor\b)\s*")
 
@@ -175,8 +188,13 @@ def _codes_with_exclusions(text: str, short_codes: bool) -> tuple[set[str], set[
     return inc, exc
 
 
-def parse_location_field(location_texts: list[str]) -> tuple[set[str], set[str], list[str]]:
-    """Returns (regions, excluded, evidence) from raw location strings."""
+def parse_location_field(
+    location_texts: list[str], tz_notes: list[str] | None = None
+) -> tuple[set[str], set[str], list[str]]:
+    """Returns (regions, excluded, evidence) from raw location strings.
+
+    Time-zone phrases are appended to `tz_notes` (when given) instead of being read as places.
+    """
     regions: set[str] = set()
     excluded: set[str] = set()
     evidence: list[str] = []
@@ -184,6 +202,9 @@ def parse_location_field(location_texts: list[str]) -> tuple[set[str], set[str],
         if not raw or not raw.strip():
             continue
         raw = normalize_dashes(raw)
+        raw, tz = _strip_timezones(raw)
+        if tz and tz_notes is not None:
+            tz_notes.extend(f"location: {t}" for t in tz)
         for opt in _OPTION_SPLIT.split(raw):
             if not opt.strip():
                 continue
@@ -234,6 +255,10 @@ _ANYWHERE_RE = re.compile(
     r"from any(where| country| location))\b",
     re.I,
 )
+# "this isn't a work-from-anywhere kind of remote", "internet allowance so you can work
+# from anywhere": an anywhere phrase that is negated or describes a perk is not a hiring rule.
+_ANYWHERE_NEG = re.compile(r"\b(not|isn't|aren't|never)\b[^.]{0,60}$", re.I)
+_ANYWHERE_PERK = re.compile(r"\b(allowance|stipend|budget|perks?|benefits?|retreats?|offsites?|travel)\b", re.I)
 _TZ_RE = re.compile(
     r"\b(?:(?:[A-Z]{2,4}|US|EU|European|Pacific|Eastern|Central|India|Asian|American)\s+)?time ?zones?\b"
     r"|\b(PST|PT|EST|ET|CST|CET|GMT|UTC|IST|SGT)\b(?:\s*[+-]\s*\d+)?",
@@ -263,9 +288,11 @@ def parse_description_geo(desc: str) -> tuple[set[str], set[str], list[str], lis
                 excluded |= codes
                 evidence.append(s)
             continue
-        if _ANYWHERE_RE.search(s) and not [p for p in places if p.code != "GLOBAL"]:
-            regions.add("GLOBAL")
-            evidence.append(s)
+        anywhere = _ANYWHERE_RE.search(s)
+        if anywhere and not [p for p in places if p.code != "GLOBAL"]:
+            if not (_ANYWHERE_NEG.search(s[: anywhere.start()]) or _ANYWHERE_PERK.search(s)):
+                regions.add("GLOBAL")
+                evidence.append(s)
             continue
         if tz and not re.search(
             r"\b(located|based|reside|residing|resident|live|living|eligible|authori[sz]ed|hire|hiring)\b", s, re.I
@@ -279,8 +306,9 @@ def parse_description_geo(desc: str) -> tuple[set[str], set[str], list[str], lis
         cut = _EXCLUDE_KW.search(s)
         for p in places:
             (exc if cut and p.start >= cut.start() else inc).add(p.code)
-        if "GLOBAL" in inc and len(inc) > 1:
-            inc.discard("GLOBAL")
+        # Loose words ("global", "international", "anywhere from 25-40 customers") are
+        # company prose; only the explicit phrases above make a description global.
+        inc.discard("GLOBAL")
         if inc or exc:
             regions |= inc
             excluded |= {c for c in exc if c not in inc}
@@ -329,8 +357,12 @@ def parse_geo(
     """Parse eligible geography for one posting. See the module docstring for the order of trust."""
     location_texts = [t for t in (location_texts or []) if t and t.strip()]
     mode = remote_mode(location_texts, workplace_type)
-    loc_regions, loc_exc, loc_ev = parse_location_field(location_texts)
+    loc_tz: list[str] = []
+    loc_regions, loc_exc, loc_ev = parse_location_field(location_texts, loc_tz)
     d_regions, d_exc, d_ev, tz = parse_description_geo(description)
+    tz = loc_tz + tz
+    if mode in ("onsite", "hybrid"):
+        d_regions.discard("GLOBAL")  # an office job is not open worldwide
     spons, spons_ev = parse_sponsorship(description)
 
     evidence = list(loc_ev)

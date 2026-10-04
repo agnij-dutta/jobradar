@@ -50,7 +50,7 @@ _PATTERNS = [
         re.I,
     ),
     # 5+ years, 5 + yrs, 5 years, five (5) years, 3 or more years
-    re.compile(rf"\b{_NUM}\s*(?:\(\s*\d{{1,2}}\s*\)\s*)?(?:\+|\s+or\s+more|\s+plus)?\s*{_YRS}", re.I),
+    re.compile(rf"\b{_NUM}\s*(?:\(\s*\d{{1,2}}\s*\)\s*)?(?:\+|\s+or\s+more|[\s-]plus)?\s*{_YRS}", re.I),
     # Experience: 3+ / Years of experience: 5
     re.compile(rf"\b(?:years of experience|experience|yoe)\s*[:\-]\s*{_NUM}\s*\+?", re.I),
 ]
@@ -60,9 +60,20 @@ _EXPERIENCE_AFTER = re.compile(
     r"hands-on|working|work\b|building|developing|development|engineering|programming|coding|writing|"
     r"shipping|in (a|an)\s|as (a|an)\s|of (software|backend|frontend|full|web|production|relevant|"
     r"related|applicable|smart|blockchain|crypto|distributed|systems|post)|yoe|in software|in tech|"
-    r"in the industry|in fintech|in crypto|in web3|with\s|of\s|in\s)",
+    r"in the industry|in fintech|in crypto|in web3|overall|total|with\s|of\s|in\s)",
     re.I,
 )
+# After a "the last N years" style prefix only a real experience word counts;
+# the generic "in"/"of"/"with" above would accept "in the last 10 years in the UK".
+_STRONG_AFTER = re.compile(
+    r"^[^.;\n]{0,40}?\b(experience|experienced|exp\b|background|track record|yoe|professional|hands-on)",
+    re.I,
+)
+# "2 years of Rust (10+ total)": a bare total next to another years mention.
+_TOTAL_RE = re.compile(rf"\b{_NUM}\s*\+?\s*(?:{_YRS}\s*)?(?:total|overall|in total)\b", re.I)
+# A short line that mentions years is a requirement, not a section header,
+# even when it contains "must have" or "you have".
+_YEARS_WORD = re.compile(r"\b(years?|yrs?|yoe)\b", re.I)
 _EXPERIENCE_BEFORE = re.compile(r"(experience|yoe|seniority)[^.\n]{0,25}$", re.I)
 _BAD_AFTER = re.compile(
     r"^\s*(?:-\s*)?(?:\+\s*)?(?:olds?|ago|degree|vesting|vest|of service|of tenure|sabbatical|warranty|runway|"
@@ -127,10 +138,11 @@ def find_year_mentions(text: str) -> list[YearsMention]:
     section_preferred = False
     for ln_no, ln in enumerate(lines(text)):
         short = len(ln) < 70
-        if short and _PREFERRED_HEADER.search(ln) and not re.search(r"\d", ln):
+        header_like = short and not re.search(r"\d", ln) and not _YEARS_WORD.search(ln)
+        if header_like and _PREFERRED_HEADER.search(ln):
             section_preferred = True
             continue
-        if short and _REQUIRED_HEADER.search(ln) and not re.search(r"\d", ln):
+        if header_like and _REQUIRED_HEADER.search(ln):
             section_preferred = False
             continue
         for sent in sentences(ln):
@@ -150,7 +162,11 @@ def find_year_mentions(text: str) -> list[YearsMention]:
                         continue  # part of a larger number
                     if _SELF_BEFORE.search(before):
                         continue  # the company describing itself
-                    if _BAD_BEFORE.search(before) and not _EXPERIENCE_AFTER.search(after):
+                    if (
+                        _BAD_BEFORE.search(before)
+                        and not _STRONG_AFTER.search(after)
+                        and not _EXPERIENCE_BEFORE.search(before)
+                    ):
                         continue
                     if pi < 3 and not (
                         _EXPERIENCE_AFTER.search(after)
@@ -167,6 +183,10 @@ def find_year_mentions(text: str) -> list[YearsMention]:
                     if lo > 25:
                         continue
                     found.append((s, e, lo, hi))
+            if found:
+                for m in _TOTAL_RE.finditer(sent):
+                    if not any(m.start() < fe and fs < m.end() for fs, fe, _, _ in found):
+                        found.append((m.start(), m.end(), _num(m.group(1)), None))
             found.sort()
             pref = section_preferred or bool(_PREFERRED_LINE.search(sent))
             for i, (s, e, lo, hi) in enumerate(found):
@@ -231,7 +251,8 @@ _ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5}
 _CODE_MAP = {
     # Ladder families differ; these are the common public mappings.
     "L": {3: "entry", 4: "mid", 5: "senior", 6: "staff", 7: "principal", 8: "principal"},
-    "E": {1: "junior", 2: "junior", 3: "entry", 4: "mid", 5: "senior", 6: "staff", 7: "principal", 8: "principal"},
+    # E3 is Meta's new-grad rung but a step above E2 elsewhere; junior keeps the ladder monotonic.
+    "E": {1: "entry", 2: "junior", 3: "junior", 4: "mid", 5: "senior", 6: "staff", 7: "principal", 8: "principal"},
     "IC": {1: "entry", 2: "junior", 3: "mid", 4: "senior", 5: "staff", 6: "principal", 7: "principal"},
     "P": {1: "entry", 2: "junior", 3: "mid", 4: "senior", 5: "staff", 6: "principal"},
     "T": {1: "entry", 2: "junior", 3: "mid", 4: "senior", 5: "staff", 6: "principal"},

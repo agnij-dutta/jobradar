@@ -183,6 +183,120 @@ class Sponsorship(unittest.TestCase):
         self.assertEqual(self.s(""), "unknown")
 
 
+class ReviewCases(unittest.TestCase):
+    """Strings from the second-reviewer pass. Each one was checked by hand."""
+
+    def check(self, loc, mode, scope, regions, desc=""):
+        r = geo(loc, desc)
+        self.assertEqual((r.remote_mode, r.geo_scope, r.regions), (mode, scope, sorted(regions)), (loc, desc))
+        return r
+
+    def test_location_strings(self):
+        self.check("Remote (US or Canada)", "remote", "restricted", ["US", "CA"])
+        self.check("Remote - EMEA", "remote", "restricted", ["EMEA"])
+        self.check("Anywhere", "remote", "global", ["GLOBAL"])
+        self.check("Bengaluru or Remote India", "remote", "restricted", ["IN"])
+        self.check("LATAM", "remote", "restricted", ["LATAM"])
+        self.check("Global (excluding sanctioned countries)", "remote", "global", ["GLOBAL"])
+
+    def test_upper_case_region_codes(self):
+        self.check("Remote - EMEA, Remote - NA", "remote", "restricted", ["EMEA", "NA"])
+        self.check("APJ", "remote", "restricted", ["APAC"])
+        self.check("N/A", "unknown", "unspecified", [])
+
+    def test_time_zone_in_location_is_hours_not_residency(self):
+        r = self.check("Remote, US time zones", "remote", "unspecified", [])
+        self.assertEqual(r.timezone_notes, ["location: US time zones"])
+        self.check("US time zones", "remote", "unspecified", [])
+        self.check("Remote (EU timezone)", "remote", "unspecified", [])
+        # The country next to the time zone still counts.
+        self.check("United States (East Coast Time Zone) - Remote", "remote", "restricted", ["US"])
+        self.check("US Remote (EST Timezone Only)", "remote", "restricted", ["US"])
+
+    def test_loose_global_words_in_description_are_not_worldwide(self):
+        # All three were classified "worldwide" in the 2026-10-04 snapshot.
+        self.check(
+            "Remote",
+            "remote",
+            "unspecified",
+            [],
+            "Become part of a fast-growing, international, and remote-first team where you can have a real impact.",
+        )
+        self.check(
+            "Remote",
+            "remote",
+            "unspecified",
+            [],
+            "You'll be the face of the product for anywhere from 25-40 paying customers.",
+        )
+        self.check(
+            "Remote",
+            "remote",
+            "unspecified",
+            [],
+            "Stay connected: monthly internet allowance to support your work from anywhere.",
+        )
+
+    def test_negated_anywhere_is_not_worldwide(self):
+        self.check(
+            "Remote",
+            "remote",
+            "unspecified",
+            [],
+            "This isn't a passport-optional, work-from-anywhere-on-Earth kind of remote.",
+        )
+        self.check("Remote", "remote", "global", ["GLOBAL"], "You can work from anywhere in the world.")
+
+    def test_onsite_job_is_never_worldwide_from_prose(self):
+        self.check(
+            "Curitiba | On-site",
+            "onsite",
+            "unspecified",
+            [],
+            "You will work from anywhere in our office and collaborate with a distributed team on global standards.",
+        )
+
+
+class SponsorshipReviewCases(unittest.TestCase):
+    def check(self, text, want):
+        self.assertEqual(parse_sponsorship(text)[0], want, text)
+
+    def test_refusals(self):
+        self.check("We are unable to sponsor visas for this role.", "no")
+        self.check("Sponsorship: No", "no")
+        self.check("Visa sponsorship is not available for this position.", "no")
+
+    def test_offers(self):
+        self.check("Sponsorship available for qualified candidates.", "yes")
+        self.check("Relocation assistance and visa sponsorship are available.", "yes")
+        self.check("Visa sponsorship: Yes", "yes")
+        self.check("We are open to sponsoring visas for exceptional candidates.", "yes")
+
+    def test_hedged_refusal_after_an_offer_is_an_offer(self):
+        # This sentence pair is on every posting of one large board (635 rows read "no").
+        self.check(
+            "Visa sponsorship: We do sponsor visas! However, we aren't able to successfully sponsor visas "
+            "for every role and every candidate. But if we make you an offer, we will make every reasonable effort.",
+            "yes",
+        )
+
+    def test_negations_that_do_not_refuse(self):
+        self.check("Whether or not you need visa sponsorship, we encourage you to apply.", "unknown")
+        self.check("We do not require existing work authorization; visa sponsorship is available.", "yes")
+        self.check("Not sure if you need sponsorship? We sponsor H-1B visas.", "yes")
+
+    def test_non_visa_sponsor_words(self):
+        self.check(
+            "Any offer may be conditioned on your authorization to receive technology controlled under "
+            "U.S. export laws without sponsorship for an export license.",
+            "unknown",
+        )
+        self.check("Ability to orchestrate people who don't report to you: executive sponsors, partners.", "unknown")
+        self.check(
+            "We do not discriminate on the basis of race, religion, citizenship or immigration status.", "unknown"
+        )
+
+
 class Eligibility(unittest.TestCase):
     def test_region_membership(self):
         self.assertEqual(eligible(["APAC"], [], "IN", "restricted"), "yes")
