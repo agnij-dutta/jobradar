@@ -153,7 +153,7 @@
       if (e === "yes") why.push(`open to ${st.region} (${where})`);
       else if (e === "unknown") {
         if (st.unverified) cav.push(`never says where it hires; ${st.region} unverified`);
-        else rej.push(`geo: says ${MODE[p.m]} but never says where`);
+        else rej.push("geo: never says where it hires");
       } else
         rej.push(
           p.m === "r" ? "geo: 'Remote' but restricted to other countries" : "geo: onsite/hybrid in another country",
@@ -164,7 +164,7 @@
       if (p.y == null) {
         if (st.strictYears) rej.push("years: not stated");
         else cav.push(`years not stated${p.py != null ? `; prefers ${p.py}+` : ""}`);
-      } else if (p.y > st.years) rej.push(p.pt ? "years: above max, title gives no hint" : "years: above max");
+      } else if (p.y > st.years) rej.push("years: asks for more than your max");
       else why.push(`asks ${p.y}+ years`);
     } else if (st.strictYears && p.y == null) rej.push("years: not stated");
     if (st.levels.length) {

@@ -174,7 +174,7 @@ _CATS = [
     ("text does not", "text filter"),
     ("description mentions none", "stack: no requested term in the description"),
     ("stack score", "stack score too low"),
-    ("but never says where", "geo: says Remote/onsite but never says where"),
+    ("but never says where", "geo: never says where it hires"),
     ("Remote, but only", "geo: 'Remote' but restricted to other countries"),
     ("located in", "geo: onsite/hybrid in another country"),
     ("work mode is", "work mode: not remote"),
