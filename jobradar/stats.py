@@ -8,6 +8,7 @@ from .parse_geo import eligible, find_places
 
 
 def compute(snap: dict, home: str = "IN") -> dict:
+    """Aggregate numbers over a snapshot, relative to a home country."""
     meta = snap["meta"]
     ps = snap["postings"]
     boards = snap["boards"]
@@ -106,6 +107,7 @@ def compute(snap: dict, home: str = "IN") -> dict:
 
 
 def render(st: dict, home: str = "IN") -> str:
+    """Human-readable version of `compute`'s output."""
     b, p = st["boards"], st["postings"]
     ra, re_ = st["remote_all"], st["remote_engineering"]
     t = st["titles"]

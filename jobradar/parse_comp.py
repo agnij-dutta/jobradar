@@ -113,6 +113,7 @@ def _band(cur: str, lo: float, hi: float, interval: str, source: str) -> dict | 
 
 
 def from_ashby(comp: dict | None) -> dict | None:
+    """Salary band from Ashby's `compensation.summaryComponents`, or None."""
     if not comp:
         return None
     for c in comp.get("summaryComponents") or []:
@@ -130,6 +131,7 @@ def from_ashby(comp: dict | None) -> dict | None:
 
 
 def from_lever(sr: dict | None) -> dict | None:
+    """Salary band from Lever's `salaryRange`, or None."""
     if not sr or not sr.get("min"):
         return None
     iv = (sr.get("interval") or "per-year-salary").lower()
@@ -138,6 +140,7 @@ def from_lever(sr: dict | None) -> dict | None:
 
 
 def from_text(text: str) -> dict | None:
+    """First salary range in free text that sits near a pay word (salary, base, compensation, ...), or None."""
     if not text:
         return None
     t = normalize_dashes(text)

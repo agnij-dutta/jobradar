@@ -60,6 +60,8 @@ _EXCLUDE_KW = re.compile(r"\b(excluding|except(?: for)?|excl\.?|not including|ot
 
 @dataclass
 class Place:
+    """One geographic mention found in text."""
+
     start: int
     end: int
     code: str
@@ -140,6 +142,7 @@ _ONSITE_RE = re.compile(r"\b(on-?site|in[- ]office|in person)\b", re.I)
 
 
 def remote_mode(location_texts: list[str], workplace_type: str | None) -> str:
+    """Work mode from location strings and the ATS workplace field: remote, hybrid, onsite or unknown."""
     joined = " ; ".join(t for t in location_texts if t)
     wt = (workplace_type or "").lower().replace("-", "").replace("_", "")
     if wt == "remote" or _REMOTE_RE.search(joined):
@@ -290,6 +293,8 @@ def parse_description_geo(desc: str) -> tuple[set[str], set[str], list[str], lis
 
 @dataclass
 class GeoResult:
+    """Combined geography, work mode and sponsorship for one posting."""
+
     remote_mode: str
     regions: list[str]
     excluded: list[str]
@@ -301,6 +306,7 @@ class GeoResult:
     timezone_notes: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict:
+        """Flatten into posting-schema fields."""
         return {
             "remote_mode": self.remote_mode,
             "regions": self.regions,
@@ -320,6 +326,7 @@ def parse_geo(
     workplace_type: str | None = None,
     structured_countries: list[str] | None = None,
 ) -> GeoResult:
+    """Parse eligible geography for one posting. See the module docstring for the order of trust."""
     location_texts = [t for t in (location_texts or []) if t and t.strip()]
     mode = remote_mode(location_texts, workplace_type)
     loc_regions, loc_exc, loc_ev = parse_location_field(location_texts)

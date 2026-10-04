@@ -17,15 +17,18 @@ SEEDS = Path(os.environ.get("JOBRADAR_SEEDS_DIR") or ROOT / "seeds")
 
 
 def load_json(name: str, default):
+    """Read a JSON file from the seeds directory, or `default` if it does not exist."""
     p = SEEDS / name
     return json.loads(p.read_text()) if p.exists() else default
 
 
 def boards() -> list[dict]:
+    """The verified boards to sweep."""
     return load_json("boards.json", [])
 
 
 def collisions() -> set[tuple[str, str]]:
+    """(ats, slug) pairs that belong to an unrelated company and must be skipped."""
     return {(c["ats"], c["slug"]) for c in load_json("collisions.json", [])}
 
 
@@ -80,6 +83,7 @@ def _probe_one(ats: str, slug: str) -> dict:
 
 
 def probe(candidates: list[dict], workers: int = 12, log=print) -> dict:
+    """Try every candidate slug on every ATS. Returns live boards, dead slugs, errors and identity-review items."""
     tasks = [(ats, c) for c in candidates for ats in ADAPTERS]
     results: list[tuple[dict, dict]] = []
     with cf.ThreadPoolExecutor(workers) as ex:

@@ -21,6 +21,7 @@ RAW_DIR = store.DATA / "raw"
 
 
 def raw_path(ats: str, slug: str):
+    """Where the raw payload for a board is cached."""
     return RAW_DIR / f"{ats}__{slug}.json.gz"
 
 
@@ -34,6 +35,7 @@ def save_raw(ats: str, slug: str, data) -> None:
 
 
 def normalize_jobs(b: dict, company: str, jobs: list[dict], res: dict) -> list[dict]:
+    """Normalize a board's jobs, counting (not raising on) per-job parse errors."""
     out, parse_errors, seen = [], 0, set()
     for j in jobs:
         try:
@@ -55,6 +57,7 @@ def normalize_jobs(b: dict, company: str, jobs: list[dict], res: dict) -> list[d
 
 
 def fetch_one(b: dict) -> tuple[dict, list[dict]]:
+    """Fetch and normalize one board. Returns its three-state result and its postings."""
     board = f"{b['ats']}:{b['slug']}"
     t0 = time.monotonic()
     r = fetch_board(b["ats"], b["slug"])
@@ -86,6 +89,7 @@ def fetch_one(b: dict) -> tuple[dict, list[dict]]:
 
 
 def run(workers: int = 12, log=print, only: list[str] | None = None) -> dict:
+    """Sweep every seeded board and write history and snapshot."""
     bl = seeds.boards()
     if only:
         bl = [b for b in bl if b["slug"] in only]

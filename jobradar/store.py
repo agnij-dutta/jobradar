@@ -39,6 +39,7 @@ CREATE INDEX IF NOT EXISTS postings_first_seen ON postings(first_seen);
 
 
 def connect(path: Path = DB_PATH) -> sqlite3.Connection:
+    """Open (and create if needed) the SQLite history database."""
     path.parent.mkdir(parents=True, exist_ok=True)
     con = sqlite3.connect(path)
     con.executescript(SCHEMA)
@@ -117,6 +118,7 @@ def record_run(
 
 
 def current_postings(con: sqlite3.Connection, board_status: dict[str, str]) -> list[dict]:
+    """Open postings for boards in `board_status`, with history fields and a stale flag."""
     out = []
     for _pid, board, first_seen, last_seen, data in con.execute(
         "SELECT id, board, first_seen, last_seen, data FROM postings WHERE closed_at IS NULL ORDER BY id"
@@ -132,11 +134,13 @@ def current_postings(con: sqlite3.Connection, board_status: dict[str, str]) -> l
 
 
 def last_run_started(con: sqlite3.Connection) -> str | None:
+    """Start time of the most recent sweep, or None."""
     row = con.execute("SELECT started_at FROM runs ORDER BY started_at DESC LIMIT 1").fetchone()
     return row[0] if row else None
 
 
 def write_snapshot(meta: dict, boards: list[dict], postings: list[dict], path: Path = SNAPSHOT_PATH) -> None:
+    """Atomically write the JSON snapshot."""
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps({"meta": meta, "boards": boards, "postings": postings}, ensure_ascii=False))
@@ -144,6 +148,7 @@ def write_snapshot(meta: dict, boards: list[dict], postings: list[dict], path: P
 
 
 def load_snapshot(path: Path = SNAPSHOT_PATH) -> dict:
+    """Read the JSON snapshot, with a clear error if no sweep has run."""
     if not path.exists():
         raise FileNotFoundError(f"{path} not found. Run `jobradar sweep` first.")
     return json.loads(path.read_text())

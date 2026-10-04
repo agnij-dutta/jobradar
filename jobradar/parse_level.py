@@ -110,6 +110,8 @@ def _num(s: str) -> float:
 
 @dataclass
 class YearsMention:
+    """One 'N years' mention found in requirement text."""
+
     value: float  # lower bound
     upper: float | None
     text: str
@@ -119,6 +121,7 @@ class YearsMention:
 
 
 def find_year_mentions(text: str) -> list[YearsMention]:
+    """Every years-of-experience mention, with required/preferred and alternative flags."""
     text = normalize_dashes(text or "")
     out: list[YearsMention] = []
     section_preferred = False
@@ -258,6 +261,7 @@ def level_code(title: str) -> tuple[str | None, str | None]:
 
 
 def title_level(title: str) -> str | None:
+    """Ladder rung implied by title words alone (senior, staff, intern, ...), or None."""
     t = title or ""
     for name, rx in _TITLE_WORDS:
         if rx.search(t):
@@ -266,6 +270,7 @@ def title_level(title: str) -> str | None:
 
 
 def level_from_years(y: float) -> str:
+    """Map required years to a ladder rung."""
     if y < 1:
         return "entry"
     if y < 3:
@@ -281,6 +286,8 @@ def level_from_years(y: float) -> str:
 
 @dataclass
 class LevelResult:
+    """Years and level for one posting, with where the level came from."""
+
     min_years: float | None
     preferred_years: float | None
     years_evidence: str | None
@@ -292,6 +299,7 @@ class LevelResult:
     notes: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict:
+        """Flatten into posting-schema fields."""
         return {
             "min_years": self.min_years,
             "preferred_years": self.preferred_years,
@@ -306,6 +314,7 @@ class LevelResult:
 
 
 def parse_level(title: str, description: str) -> LevelResult:
+    """Years and level for one posting: required years beat level codes, which beat title words."""
     req, pref, ev = min_years(description)
     code_txt, code_lvl = level_code(title)
     tl = title_level(title)

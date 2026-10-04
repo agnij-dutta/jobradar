@@ -24,6 +24,7 @@ def _csv(s: str | None) -> list[str]:
 
 
 def cmd_probe(a) -> int:
+    """Probe candidate slugs and merge the results into the seed files."""
     from . import seeds
 
     cands = seeds.load_json("candidates.json", [])
@@ -61,6 +62,7 @@ def cmd_probe(a) -> int:
 
 
 def cmd_sweep(a) -> int:
+    """Run a full sweep and print the run summary."""
     from . import sweep
 
     meta = sweep.run(workers=a.workers, log=lambda m: print(m, file=sys.stderr), only=_csv(a.only) or None)
@@ -69,6 +71,7 @@ def cmd_sweep(a) -> int:
 
 
 def cmd_reparse(a) -> int:
+    """Re-run parsers over saved raw payloads."""
     from . import sweep
 
     print(json.dumps(sweep.reparse(log=lambda m: print(m, file=sys.stderr)), indent=1))
@@ -113,6 +116,7 @@ def _posted_before(hits: list[S.Hit], snapshot_at: str | None, days: int) -> int
 
 
 def cmd_search(a) -> int:
+    """Search the snapshot and print results, exclusions and near misses."""
     snap = _load(a.snapshot)
     new_since = a.new_since
     if new_since == "last":
@@ -185,6 +189,7 @@ def cmd_search(a) -> int:
 
 
 def cmd_stats(a) -> int:
+    """Print aggregate numbers over the snapshot."""
     from . import stats
 
     snap = _load(a.snapshot)
@@ -194,6 +199,7 @@ def cmd_stats(a) -> int:
 
 
 def cmd_build(a) -> int:
+    """Build the static web UI."""
     from . import webbuild
 
     out = webbuild.build(snapshot_path=a.snapshot, out_dir=a.out)
@@ -202,6 +208,7 @@ def cmd_build(a) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Entry point for the `jobradar` command."""
     ap = argparse.ArgumentParser(prog="jobradar", description="Search company job boards straight from ATS APIs.")
     sub = ap.add_subparsers(dest="cmd", required=True)
 

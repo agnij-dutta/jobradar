@@ -33,6 +33,7 @@ def _short(s: str | None, n: int) -> str | None:
 
 
 def slim(p: dict, companies: dict, seen_times: dict) -> dict:
+    """Compact one posting for the browser: drop the description, shorten evidence, index repeated strings."""
     c = p.get("comp") or {}
     ckey = (p.get("company") or "", p.get("category") or "")
     if ckey not in companies:
@@ -83,6 +84,7 @@ def slim(p: dict, companies: dict, seen_times: dict) -> dict:
 
 
 def build(snapshot_path: str | None = None, out_dir: str | None = None) -> dict:
+    """Copy web/ to the output dir and write data/jobs.js from the snapshot."""
     snap = store.load_snapshot(Path(snapshot_path) if snapshot_path else store.SNAPSHOT_PATH)
     out = Path(out_dir) if out_dir else DIST
     if out.exists():

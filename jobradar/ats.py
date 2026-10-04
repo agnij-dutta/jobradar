@@ -44,6 +44,8 @@ class RawFields:
 
 
 class Adapter:
+    """Base class for one ATS source. Subclass it and register the instance in ADAPTERS."""
+
     name: str = ""
     fetch_url: str = ""  # full board, with descriptions
     probe_url: str = ""  # cheapest call that proves the slug exists
@@ -53,6 +55,7 @@ class Adapter:
         raise NotImplementedError
 
     def extract(self, job: dict) -> RawFields:
+        """Pull raw fields out of one job object, without interpreting them."""
         raise NotImplementedError
 
 
@@ -70,6 +73,8 @@ def _iso(value: Any) -> str | None:
 
 
 class Greenhouse(Adapter):
+    """boards-api.greenhouse.io. Descriptions arrive as double-escaped HTML; no structured pay on the list endpoint."""
+
     name = "greenhouse"
     fetch_url = "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true"
     probe_url = "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs"
@@ -98,6 +103,8 @@ class Greenhouse(Adapter):
 
 
 class Ashby(Adapter):
+    """api.ashbyhq.com posting API. Has structured pay, workplace type and postal-address countries."""
+
     name = "ashby"
     fetch_url = "https://api.ashbyhq.com/posting-api/job-board/{slug}?includeCompensation=true"
     probe_url = "https://api.ashbyhq.com/posting-api/job-board/{slug}"
@@ -129,6 +136,8 @@ class Ashby(Adapter):
 
 
 class Lever(Adapter):
+    """api.lever.co postings API. Requirements live in titled `lists` sections."""
+
     name = "lever"
     fetch_url = "https://api.lever.co/v0/postings/{slug}?mode=json"
     probe_url = "https://api.lever.co/v0/postings/{slug}?mode=json&limit=1"
@@ -188,10 +197,12 @@ def is_engineering(title: str) -> bool:
 
 
 def fetch_board(ats: str, slug: str) -> FetchResult:
+    """Fetch a full board, with descriptions."""
     return get_json(ADAPTERS[ats].fetch_url.format(slug=slug), timeout=90)
 
 
 def probe_board(ats: str, slug: str) -> FetchResult:
+    """Cheapest request that proves a slug exists on this ATS."""
     return get_json(ADAPTERS[ats].probe_url.format(slug=slug), timeout=30)
 
 

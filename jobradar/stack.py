@@ -106,6 +106,7 @@ _COMPILED = {k: re.compile(v, re.I) for k, v in VOCAB.items()}
 
 
 def resolve_term(term: str) -> tuple[str, re.Pattern]:
+    """Resolve a user term (with aliases) to a vocabulary name and regex; unknown terms match as whole words."""
     t = term.strip().lower()
     t = ALIASES.get(t, t)
     if t in _COMPILED:

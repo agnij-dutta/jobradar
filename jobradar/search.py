@@ -17,6 +17,8 @@ from .stack import score
 
 @dataclass
 class Query:
+    """Search filters. Unset fields do not filter."""
+
     stack: list[str] = field(default_factory=list)
     region: str | None = None  # ISO country of the searcher, e.g. IN
     include_unverified_geo: bool = False  # keep "Remote" postings that never say where
@@ -37,6 +39,8 @@ class Query:
 
 @dataclass
 class Hit:
+    """A matched posting with its score, reasons and caveats."""
+
     posting: dict
     score: float
     why: list[str]
@@ -45,18 +49,15 @@ class Hit:
 
 @dataclass
 class Miss:
+    """An excluded posting with every reason it was excluded."""
+
     posting: dict
     score: float
     reasons: list[str]
 
 
-def _years_str(p: dict) -> str:
-    if p.get("min_years") is None:
-        return "years not stated" + (f" (prefers {p['preferred_years']:g}+)" if p.get("preferred_years") else "")
-    return f"{p['min_years']:g}+ yrs required"
-
-
 def evaluate(p: dict, q: Query) -> tuple[bool, float, list[str], list[str], list[str]]:
+    """Apply every filter to one posting. Returns (matched, score, why, caveats, reasons)."""
     why: list[str] = []
     caveats: list[str] = []
     reasons: list[str] = []
@@ -154,6 +155,7 @@ def evaluate(p: dict, q: Query) -> tuple[bool, float, list[str], list[str], list
 
 
 def run(postings: list[dict], q: Query) -> tuple[list[Hit], list[Miss]]:
+    """Evaluate every posting; return sorted hits and misses."""
     hits: list[Hit] = []
     misses: list[Miss] = []
     for p in postings:
@@ -189,6 +191,7 @@ _CATS = [
 
 
 def reason_category(reason: str) -> str:
+    """Group a specific exclusion reason into a summary category."""
     for prefix, label in _CATS:
         if prefix in reason[: max(len(prefix) + 40, 60)]:
             return label

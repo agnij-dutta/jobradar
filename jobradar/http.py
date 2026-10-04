@@ -30,6 +30,8 @@ _lock = threading.Lock()
 
 @dataclass
 class FetchResult:
+    """Outcome of one request. `status` is ok, not_found or error; callers must not treat error as empty."""
+
     status: str  # ok | not_found | error
     http_status: int | None
     data: object = None
@@ -57,6 +59,7 @@ def _space(host: str) -> None:
 
 
 def get_json(url: str, timeout: float = 45.0) -> FetchResult:
+    """GET a JSON URL politely: per-host concurrency cap and spacing, retries with backoff on 429/5xx and network errors."""
     host = urlparse(url).netloc
     sem = _gate(host)
     t0 = time.monotonic()

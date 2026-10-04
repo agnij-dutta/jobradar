@@ -419,6 +419,7 @@ CITY_CODES_CASED = {
 
 
 def region_contains(region: str, country: str) -> bool:
+    """True if `region` (a region code, GLOBAL or a country code) includes `country`."""
     if region == "GLOBAL":
         return True
     if region == country:
