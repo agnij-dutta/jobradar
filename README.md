@@ -1,5 +1,7 @@
 # Job Radar
 
+Live: https://jobradar-live.vercel.app (the web UI over the sweep of 2026-10-04; the sweep time is shown at the top of the page)
+
 Search company job boards straight from the Greenhouse, Ashby and Lever APIs, with filters that read the posting text: where you are actually allowed to work from, how many years the requirements ask for, and what the role pays. A CLI and a static web page for engineers who are tired of "Remote" meaning "Remote, US only".
 
 ![Job Radar web UI: 27 of 17,467 postings match TypeScript and Solidity, open to India, remote, at most 3 years. The exclusion panel shows 4,490 postings removed as "'Remote' but restricted to other countries".](docs/screenshot.png)
@@ -63,7 +65,9 @@ One full sweep of the 310 boards in `seeds/boards.json`, started 2026-10-04 11:3
 
 ## Quickstart
 
-Python 3.10 or newer, no dependencies. Run from a clone of the repo, because the seed list lives in `seeds/`.
+To browse without installing anything, open [jobradar-live.vercel.app](https://jobradar-live.vercel.app). It searches the full 2026-10-04 sweep in your browser.
+
+To run it yourself: Python 3.10 or newer, no dependencies. Run from a clone of the repo, because the seed list lives in `seeds/`.
 
 ```bash
 git clone https://github.com/agnij-dutta/jobradar.git
@@ -128,6 +132,17 @@ python3 -m http.server 8787 -d dist   # then open http://localhost:8787
 ### Web UI
 
 The page in `dist/` filters a slim copy of the snapshot in the browser: country you can work from, work mode, max years, level, minimum pay, stack keywords, visa, engineering only, and title or company. Every badge shows its evidence sentence on hover. "Only new since last sweep" is a checkbox and is off by default. Filters are stored in the URL, so a view can be shared as a link.
+
+### Hosted copy
+
+https://jobradar-live.vercel.app is this page, built from a local sweep and uploaded prebuilt with the Vercel CLI. `data/` is gitignored, so a git-connected build could not regenerate it, and the site is not redeployed on push. To refresh it with a new sweep (Vercel CLI installed and logged in to the account that owns the `jobradar` project):
+
+```bash
+python3 -m jobradar sweep   # a few minutes, writes data/snapshot.json
+make deploy                 # jobradar build, then vercel deploy --prod of dist/
+```
+
+The page header shows the sweep time from the snapshot, so check it after deploying. Update the date in this README's Live line too.
 
 ### Python API
 

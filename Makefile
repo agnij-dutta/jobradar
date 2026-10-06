@@ -1,6 +1,6 @@
 PY ?= python3
 
-.PHONY: help test lint format typecheck lint-web format-web check sweep build build-sample serve stats
+.PHONY: help test lint format typecheck lint-web format-web check sweep build build-sample serve stats deploy
 
 help:
 	@echo "test        unit tests"
@@ -11,6 +11,7 @@ help:
 	@echo "sweep       fetch every board (network, a few minutes)"
 	@echo "build       build dist/ from data/snapshot.json"
 	@echo "serve       build and serve dist/ on http://localhost:8787"
+	@echo "deploy      build dist/ and deploy it to the Vercel project jobradar (Vercel CLI, logged in)"
 
 test:
 	$(PY) -m unittest discover -s tests -t . -v
@@ -43,3 +44,7 @@ serve: build
 
 stats:
 	$(PY) -m jobradar stats
+
+# The sweep in data/ is local only (gitignored), so the site is deployed prebuilt from dist/.
+deploy: build
+	cd dist && vercel link --yes --project jobradar >/dev/null && vercel deploy --prod --yes
